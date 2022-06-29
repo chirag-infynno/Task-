@@ -1,4 +1,3 @@
-// import logo from './logo.svg';
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import { Home } from "./component/Home";
@@ -10,12 +9,8 @@ function App() {
   const [edit, seteditdata] = useState({});
   const [apidata, setapidata] = useState([]);
   const [update, setupdate] = useState(false);
-  // const
 
   return (
-    // <h1>nasn</h1>
-    // </div>
-
     <Routes>
       <Route
         path="/"
@@ -25,9 +20,12 @@ function App() {
           />
         }
       />
-      <Route path="/user/:id" element={<View />} />
       <Route
-        path="edit"
+        path="/user/:id"
+        element={<View {...{ setapidata, update, apidata }} />}
+      />
+      <Route
+        path="edit/:id"
         element={
           <Edit
             {...{ edit, seteditdata, apidata, setapidata, update, setupdate }}

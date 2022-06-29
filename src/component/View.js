@@ -1,45 +1,50 @@
-// import { Axios } from "axios";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-export function View() {
+export function View({ update, apidata }) {
   const [empdata, setEmpdata] = useState([]);
 
   const { id } = useParams();
   console.log(id);
-  // C:\Users\Dell-Pc\Desktop\infynno\react\formapi\src\component\Home.js
+  const fetchdata = async () => {
+    const { data, status } = await axios.get(
+      `https://reqres.in/api/users/${id}`
+    );
+
+    if (status == 200) {
+      console.log("apidata", data.data);
+      setEmpdata(data.data);
+    }
+  };
 
   useEffect(() => {
-    const fetchdata = async () => {
-      const { data } = await axios.get(`https://reqres.in/api/users/${id}`);
-      //   console.log(data.data);
-      setEmpdata(data.data);
-    };
+    console.log("update", update);
+    if (update) {
+      console.log("apidata", apidata);
+      const newdata = apidata.filter((data) => {
+        if (data.id == id) {
+          return data;
+        }
+      });
 
-    fetchdata();
+      console.log("view new", newdata);
+      setEmpdata(...newdata);
+    } else {
+      fetchdata();
+      console.log("empadata", empdata);
+    }
   }, []);
 
   return (
     <>
-      {/* <h1>lnaskn</h1> */}
-
-      <section
-        className="vh-100"
-        //    style="background-color: #f4f5f7;"
-      >
+      <section className="vh-100">
         <div className="container py-5 h-100">
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col col-lg-6 mb-4 mb-lg-0">
-              <div
-                className="card mb-3"
-                // style="border-radius: .5rem;"
-              >
+              <div className="card mb-3">
                 <div className="row g-0">
-                  <div
-                    className="col-md-4 gradient-custom text-center text-white"
-                    //   style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;"
-                  >
+                  <div className="col-md-4 gradient-custom text-center text-white">
                     <img
                       src={empdata?.first_name && empdata.avatar}
                       alt="Avatar"
@@ -53,7 +58,6 @@ export function View() {
                   <div className="col-md-8">
                     <div className="card-body p-4">
                       <h6>Information</h6>
-                      {/* <hr className="mt-0 mb-4"> */}
                       <div className="row pt-1">
                         <div className="col-6 mb-3">
                           <h6>Email</h6>
@@ -69,7 +73,6 @@ export function View() {
                         </div>
                       </div>
                       <h6>Projects</h6>
-                      {/* <hr className="mt-0 mb-4"> */}
                       <div className="row pt-1">
                         <div className="col-6 mb-3">
                           <h6>Recent</h6>

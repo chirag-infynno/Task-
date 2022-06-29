@@ -3,20 +3,25 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 
-import { Navigate } from "react-router-dom";
-
-export function Home({ editdata, seteditdata, update, apidata, setapidata }) {
+export function Home({
+  editdata,
+  seteditdata,
+  update,
+  apidata,
+  setapidata,
+  setupdate,
+}) {
+  console.log("home update", update);
   const [empdata, setEmpdata] = useState([]);
   function removeelement(id) {
     const newarray = empdata.filter((data) => {
-      if (data.id !== id) {
+      if (data.id === id) {
         return data;
       }
     });
+    // console.log();
     setEmpdata(newarray);
   }
-
-  // C:\Users\Dell-Pc\Desktop\infynno\react\formapi\src\component\Home.js
 
   useEffect(() => {
     const fetchdata = async () => {
@@ -24,13 +29,13 @@ export function Home({ editdata, seteditdata, update, apidata, setapidata }) {
 
       console.log(status);
       if (status === 200) {
-        // console.log("yes");
         setEmpdata(data.data);
         setapidata(data.data);
       }
     };
     if (update) {
       setEmpdata(apidata);
+      // setapidata(data.data);
     } else {
       fetchdata();
     }
@@ -80,9 +85,8 @@ export function Home({ editdata, seteditdata, update, apidata, setapidata }) {
                   </td>
                   <td>
                     <Link
-                      to={`/edit`}
+                      to={`/edit/${data.id}`}
                       onClick={() => {
-                        // console.log("kbjbj");
                         seteditdata({ ...data });
                       }}
                       className="btn btn-primary"

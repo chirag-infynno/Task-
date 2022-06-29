@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 export function Edit({
   edit,
   setedit,
@@ -11,29 +10,32 @@ export function Edit({
 }) {
   const [formdata, setformdata] = useState({});
   let navigate = useNavigate();
-
-  const [first_name, setFirst_name] = useState("");
   function handlechange(e) {
     const { name, value } = e.target;
-    // console.log(name);
-    // console.log(e.target.name);
     setformdata({ ...formdata, [name]: value });
   }
 
   async function submitdata(e) {
-    const newdata = apidata.map((data) => {
-      if (data.id === edit.id) {
-        return formdata;
-      } else {
-        return data;
-      }
-    });
+    if (
+      formdata.first_name == "" ||
+      formdata.last_name == "" ||
+      formdata.email == ""
+    ) {
+    } else {
+      const newdata = apidata.map((data) => {
+        if (data.id == edit.id) {
+          return formdata;
+        } else {
+          return data;
+        }
+      });
 
-    setapidata(newdata);
-    setupdate(true);
-    // navigator
-    console.log("new data", newdata);
-    navigate("/");
+      setapidata(newdata);
+      setupdate(true);
+      // navigator
+      console.log("new data", newdata);
+      navigate("/");
+    }
   }
 
   useEffect(() => {
@@ -42,7 +44,6 @@ export function Edit({
 
   return (
     <>
-      {/* <div className="name vh-100"> */}
       <div className="container rounded bg-white mt-5 mb-5 k">
         <div className="row">
           <div className="col-md-3 border-right">
@@ -51,6 +52,7 @@ export function Edit({
                 className="rounded-circle mt-5"
                 width="150px"
                 src={formdata.avatar}
+                alt="/"
               />
               <span className="font-weight-bold">Edogaru</span>
               <span className="text-black-50">edogaru@mail.com.my</span>
@@ -63,9 +65,18 @@ export function Edit({
                 <h4 className="text-right">Profile Settings</h4>
               </div>
               <div className="row mt-2">
-                {/* <div className="col-md-6"><label className="labels">Name</label><input type="text" className="form-control" placeholder="first name" value=""></div> */}
+                {/* <div className="col-md-6"><label className="h6">Name</label><input type="text" className="form-control" placeholder="first name" value=""></div> */}
                 <div className="col-md-8">
-                  <label className="labels">first name</label>
+                  <h6
+                    className={
+                      formdata?.first_name == ""
+                        ? "d-block text-danger"
+                        : "d-none"
+                    }
+                  >
+                    please enter first name
+                  </h6>
+                  <label className="h6">first name</label>
                   <input
                     type="text"
                     className="form-control"
@@ -75,19 +86,20 @@ export function Edit({
                     name="first_name"
                   />
                 </div>
-                {/* <div className="col-md-6">
-                  <label className="labels">last name</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    value={formdata.last_name_name}
-                    placeholder="surname"
-                  />
-                </div> */}
               </div>
               <div className="row mt-2">
                 <div className="col-md-8">
-                  <label className="labels">last name</label>
+                  <h6
+                    className={
+                      formdata?.last_name == ""
+                        ? "d-block text-danger"
+                        : "d-none"
+                    }
+                  >
+                    please enter last name
+                  </h6>
+
+                  <label className="h6">last name</label>
                   <input
                     type="text"
                     className="form-control"
@@ -100,7 +112,15 @@ export function Edit({
               </div>
               <div className="row mt-3">
                 <div className="col-md-12">
-                  <label className="labels">Email</label>
+                  <h6
+                    className={
+                      formdata?.email == "" ? "d-block text-danger" : "d-none"
+                    }
+                  >
+                    please enter last email
+                  </h6>
+
+                  <h1 className="h6">Email</h1>
                   <input
                     type="text"
                     className="form-control"
@@ -114,7 +134,7 @@ export function Edit({
               </div>
               {/* <div className="row mt-3">
                 <div className="col-md-6">
-                  <label className="labels">Email</label>
+                  <label className="h6">Email</label>
                   <input
                     type="text"
                     className="form-control"
