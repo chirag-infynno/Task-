@@ -15,10 +15,18 @@ export function Home({
   const [empdata, setEmpdata] = useState([]);
   function removeelement(id) {
     const newarray = empdata.filter((data) => {
-      if (data.id === id) {
+      if (data.id !== id) {
         return data;
       }
     });
+
+    const newarray1 = apidata.filter((data) => {
+      if (data.id !== id) {
+        return data;
+      }
+    });
+
+    setapidata(newarray1);
     // console.log();
     setEmpdata(newarray);
   }
@@ -51,10 +59,10 @@ export function Home({
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">profile Image</th>
-              <th scope="col">first_name</th>
-              <th scope="col">last_name</th>
-              <th scope="col">email</th>
+              <th scope="col">Profile Image</th>
+              <th scope="col">First Name</th>
+              <th scope="col">Last Name</th>
+              <th scope="col">Email</th>
               <th scope="col">Action</th>
               <th scope="col">Action</th>
               <th scope="col">Action</th>
@@ -73,7 +81,7 @@ export function Home({
                   <td>{data.last_name}</td>
                   <td>
                     <button
-                      className="btn btn-danger"
+                      className="btn btn-danger btn-block"
                       onClick={() => {
                         console.log(data.id);
                         removeelement(data.id);
@@ -84,18 +92,23 @@ export function Home({
                     </button>
                   </td>
                   <td>
+                    {/* name login */}
+                    {/* organization */}
                     <Link
                       to={`/edit/${data.id}`}
                       onClick={() => {
                         seteditdata({ ...data });
                       }}
-                      className="btn btn-primary"
+                      className="btn btn-success btn-block"
                     >
-                      edit
+                      Edit
                     </Link>
                   </td>
                   <td>
-                    <Link to={`/user/${data.id}`} className="btn btn-primary">
+                    <Link
+                      to={`/user/${data.id}`}
+                      className="btn btn-primary btn-block"
+                    >
                       View
                     </Link>
                   </td>

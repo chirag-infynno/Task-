@@ -46,7 +46,7 @@ export function Edit({
     <>
       <div className="container rounded bg-white mt-5 mb-5 k">
         <div className="row">
-          <div className="col-md-3 border-right">
+          <div className="col border-right">
             <div className="d-flex flex-column align-items-center text-center p-3 py-5">
               <img
                 className="rounded-circle mt-5"
@@ -59,7 +59,7 @@ export function Edit({
               <span> </span>
             </div>
           </div>
-          <div className="col-md-5 border-right">
+          <div className="col border-right">
             <div className="p-3 py-5">
               <div className="d-flex justify-content-between align-items-center mb-3">
                 <h4 className="text-right">Profile Settings</h4>
@@ -74,9 +74,9 @@ export function Edit({
                         : "d-none"
                     }
                   >
-                    please enter first name
+                    please enter first Name
                   </h6>
-                  <label className="h6">first name</label>
+                  <label className="h6">First Name</label>
                   <input
                     type="text"
                     className="form-control"
@@ -96,10 +96,10 @@ export function Edit({
                         : "d-none"
                     }
                   >
-                    please enter last name
+                    Please Enter Last Name
                   </h6>
 
-                  <label className="h6">last name</label>
+                  <label className="h6">Last Name</label>
                   <input
                     type="text"
                     className="form-control"
@@ -111,7 +111,7 @@ export function Edit({
                 </div>
               </div>
               <div className="row mt-3">
-                <div className="col-md-12">
+                <div className="col-md-8">
                   <h6
                     className={
                       formdata?.email == "" ? "d-block text-danger" : "d-none"
@@ -143,7 +143,7 @@ export function Edit({
                   />
                 </div>
               </div> */}
-              <div className="mt-5 text-center">
+              <div className="mt-5 text-center d-flex justify-content-start">
                 <button
                   className="btn btn-primary profile-button"
                   type="button"
