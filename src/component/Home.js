@@ -3,7 +3,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 
-export function Home({ editdata, seteditdata }) {
+import { Navigate } from "react-router-dom";
+
+export function Home({ editdata, seteditdata, update, apidata, setapidata }) {
   const [empdata, setEmpdata] = useState([]);
   function removeelement(id) {
     const newarray = empdata.filter((data) => {
@@ -18,10 +20,20 @@ export function Home({ editdata, seteditdata }) {
 
   useEffect(() => {
     const fetchdata = async () => {
-      const { data } = await axios.get("https://reqres.in/api/users");
-      setEmpdata(data.data);
+      const { data, status } = await axios.get("https://reqres.in/api/users");
+
+      console.log(status);
+      if (status === 200) {
+        // console.log("yes");
+        setEmpdata(data.data);
+        setapidata(data.data);
+      }
     };
-    fetchdata();
+    if (update) {
+      setEmpdata(apidata);
+    } else {
+      fetchdata();
+    }
   }, []);
 
   return (
@@ -30,7 +42,7 @@ export function Home({ editdata, seteditdata }) {
         <h1 className="text-center"> Table Data</h1>
       </div>
       <div className="container">
-        <table className="table table-striped">
+        <table className="table table-striped border">
           <thead>
             <tr>
               <th scope="col">#</th>

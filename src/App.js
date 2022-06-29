@@ -8,6 +8,8 @@ import { Edit } from "./component/Edit";
 
 function App() {
   const [edit, seteditdata] = useState({});
+  const [apidata, setapidata] = useState([]);
+  const [update, setupdate] = useState(false);
   // const
 
   return (
@@ -15,9 +17,23 @@ function App() {
     // </div>
 
     <Routes>
-      <Route path="/" element={<Home {...{ edit, seteditdata }} />} />
+      <Route
+        path="/"
+        element={
+          <Home
+            {...{ edit, seteditdata, apidata, setapidata, update, setupdate }}
+          />
+        }
+      />
       <Route path="/user/:id" element={<View />} />
-      <Route path="edit" element={<Edit {...{ edit, seteditdata }} />} />
+      <Route
+        path="edit"
+        element={
+          <Edit
+            {...{ edit, seteditdata, apidata, setapidata, update, setupdate }}
+          />
+        }
+      />
 
       <Route path="*" element={<>404</>} />
     </Routes>

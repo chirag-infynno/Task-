@@ -1,14 +1,56 @@
-export function Edit({ edit, setedit }) {
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+export function Edit({
+  edit,
+  setedit,
+  apidata,
+  setapidata,
+  update,
+  setupdate,
+}) {
+  const [formdata, setformdata] = useState({});
+  let navigate = useNavigate();
+
+  const [first_name, setFirst_name] = useState("");
+  function handlechange(e) {
+    const { name, value } = e.target;
+    // console.log(name);
+    // console.log(e.target.name);
+    setformdata({ ...formdata, [name]: value });
+  }
+
+  async function submitdata(e) {
+    const newdata = apidata.map((data) => {
+      if (data.id === edit.id) {
+        return formdata;
+      } else {
+        return data;
+      }
+    });
+
+    setapidata(newdata);
+    setupdate(true);
+    // navigator
+    console.log("new data", newdata);
+    navigate("/");
+  }
+
+  useEffect(() => {
+    setformdata(edit);
+  }, []);
+
   return (
     <>
-      <div className="container rounded bg-white mt-5 mb-5">
+      {/* <div className="name vh-100"> */}
+      <div className="container rounded bg-white mt-5 mb-5 k">
         <div className="row">
           <div className="col-md-3 border-right">
             <div className="d-flex flex-column align-items-center text-center p-3 py-5">
               <img
                 className="rounded-circle mt-5"
                 width="150px"
-                src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+                src={formdata.avatar}
               />
               <span className="font-weight-bold">Edogaru</span>
               <span className="text-black-50">edogaru@mail.com.my</span>
@@ -22,42 +64,70 @@ export function Edit({ edit, setedit }) {
               </div>
               <div className="row mt-2">
                 {/* <div className="col-md-6"><label className="labels">Name</label><input type="text" className="form-control" placeholder="first name" value=""></div> */}
-                <div className="col-md-6">
-                  <label className="labels">Surname</label>
+                <div className="col-md-8">
+                  <label className="labels">first name</label>
                   <input
                     type="text"
                     className="form-control"
-                    value=""
+                    value={formdata.first_name}
                     placeholder="surname"
+                    onChange={handlechange}
+                    name="first_name"
+                  />
+                </div>
+                {/* <div className="col-md-6">
+                  <label className="labels">last name</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={formdata.last_name_name}
+                    placeholder="surname"
+                  />
+                </div> */}
+              </div>
+              <div className="row mt-2">
+                <div className="col-md-8">
+                  <label className="labels">last name</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={formdata.last_name}
+                    onChange={handlechange}
+                    placeholder="surname"
+                    name="last_name"
                   />
                 </div>
               </div>
               <div className="row mt-3">
                 <div className="col-md-12">
-                  <label className="labels">Mobile Number</label>
+                  <label className="labels">Email</label>
                   <input
                     type="text"
                     className="form-control"
                     placeholder="enter phone number"
-                    value=""
+                    value={formdata.email}
+                    onChange={handlechange}
+                    // onChange={}
+                    name="email"
                   />
                 </div>
               </div>
-              <div className="row mt-3">
+              {/* <div className="row mt-3">
                 <div className="col-md-6">
-                  <label className="labels">Country</label>
+                  <label className="labels">Email</label>
                   <input
                     type="text"
                     className="form-control"
                     placeholder="country"
-                    value=""
+                    value={formdata.email}
                   />
                 </div>
-              </div>
+              </div> */}
               <div className="mt-5 text-center">
                 <button
                   className="btn btn-primary profile-button"
                   type="button"
+                  onClick={() => submitdata()}
                 >
                   Save Profile
                 </button>
@@ -66,6 +136,7 @@ export function Edit({ edit, setedit }) {
           </div>
         </div>
       </div>
+      {/* </div> */}
       {/* </div>
 </div> */}
     </>
