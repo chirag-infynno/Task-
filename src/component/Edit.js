@@ -3,14 +3,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import * as yup from "yup";
 import React from "react";
 import { Formik } from "formik";
-export function Edit({
-  edit,
-  setedit,
-  apidata,
-  setapidata,
-  update,
-  setupdate,
-}) {
+export function Edit({ apidata, setapidata }) {
   const location = useLocation();
 
   const { id } = useParams();

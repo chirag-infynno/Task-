@@ -11,7 +11,7 @@ export function Home({
   setapidata,
   setupdate,
 }) {
-  console.log("home update", update);
+  // console.log("home update", update);
   const [empdata, setEmpdata] = useState([]);
   function removeelement(id) {
     const newarray = apidata.filter((data, index) => {
