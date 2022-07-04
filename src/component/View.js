@@ -6,42 +6,16 @@ export function View({ update, apidata }) {
   const [empdata, setEmpdata] = useState([]);
 
   const { id } = useParams();
-  console.log(id);
   const navigate = useNavigate();
-  // const fetchdata = async () => {
-  //   try {
-  //     const { data, status } = await axios.get(
-  //       `https://reqres.in/api/users/${id}`
-  //     );
-
-  //     if (status == 200) {
-  //       console.log("apidata", data.data);
-  //       setEmpdata(data.data);
-  //     }
-  //   } catch (err) {
-  //     console.log(err.response.status);
-  //     if (err.response.status == 404) {
-  //       navigate("error");
-  //     }
-  //   }
-  // };
-
   useEffect(() => {
     console.log("update", update);
-    // if (update) {
-    // console.log("apidata", apidata);
     const newdata = apidata.filter((data, index) => {
       if (index == id) {
         return data;
       }
     });
 
-    console.log("view new", newdata);
     setEmpdata(...newdata);
-    // } else {
-    // fetchdata();
-    // console.log("empadata", empdata);
-    // }
   }, []);
 
   return (

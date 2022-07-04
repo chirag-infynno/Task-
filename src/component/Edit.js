@@ -65,15 +65,10 @@ export function Edit({ apidata, setapidata }) {
                     if (location.pathname.match("/edit/")) {
                       editdata(values);
                       navigate("/");
-                      //
                     } else {
                       setapidata([...apidata, values]);
                       navigate("/");
                     }
-                    // setTimeout(() => {
-                    //   alert(JSON.stringify(values, null, 2));
-                    //   setSubmitting(false);
-                    // }, 400);
                   }}
                 >
                   {({

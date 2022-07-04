@@ -3,15 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 
-export function Home({
-  editdata,
-  seteditdata,
-  update,
-  apidata,
-  setapidata,
-  setupdate,
-}) {
-  // console.log("home update", update);
+export function Home({ apidata, setapidata }) {
   const [empdata, setEmpdata] = useState([]);
   function removeelement(id) {
     const newarray = apidata.filter((data, index) => {
@@ -22,15 +14,7 @@ export function Home({
 
     console.log(newarray);
 
-    // const newarray1 = apidata.filter((data) => {
-    //   if (data.id !== id) {
-    //     return data;
-    //   }
-    // });
-
     setapidata(newarray);
-    console.log();
-    // setEmpdata(newarray);
   }
 
   useEffect(() => {}, []);
@@ -42,14 +26,7 @@ export function Home({
       </div>
 
       <div className="container d-flex justify-content-end">
-        {/* <h1 className="text-center"> Table Data</h1> */}
-        <Link
-          to={`/add`}
-          // onClick={() => {
-          //   seteditdata({ ...data });
-          // }}
-          className="btn btn-success btn-block"
-        >
+        <Link to={`/add`} className="btn btn-success btn-block">
           Add Data
         </Link>
       </div>
@@ -92,13 +69,9 @@ export function Home({
                     </button>
                   </td>
                   <td>
-                    {/* name login */}
-                    {/* organization */}
                     <Link
                       to={`/edit/${index}`}
-                      onClick={() => {
-                        // seteditdata({ ...data });
-                      }}
+                      onClick={() => {}}
                       className="btn btn-success btn-block"
                     >
                       Edit
