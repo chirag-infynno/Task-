@@ -67,7 +67,7 @@ export function Edit({
                   validationSchema={validationSchema}
                   onSubmit={(values, { setSubmitting }) => {
                     // setapidata([...apidata, [values]]);
-                    console.log(values);
+                    console.log("crete", values);
                     console.log();
                     if (location.pathname.match("/edit/")) {
                       editdata(values);
