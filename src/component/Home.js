@@ -14,46 +14,46 @@ export function Home({
   console.log("home update", update);
   const [empdata, setEmpdata] = useState([]);
   function removeelement(id) {
-    const newarray = empdata.filter((data) => {
-      if (data.id !== id) {
+    const newarray = apidata.filter((data, index) => {
+      if (index !== id) {
         return data;
       }
     });
 
-    const newarray1 = apidata.filter((data) => {
-      if (data.id !== id) {
-        return data;
-      }
-    });
+    console.log(newarray);
 
-    setapidata(newarray1);
-    // console.log();
-    setEmpdata(newarray);
+    // const newarray1 = apidata.filter((data) => {
+    //   if (data.id !== id) {
+    //     return data;
+    //   }
+    // });
+
+    setapidata(newarray);
+    console.log();
+    // setEmpdata(newarray);
   }
 
-  useEffect(() => {
-    const fetchdata = async () => {
-      const { data, status } = await axios.get("https://reqres.in/api/users");
-
-      console.log(status);
-      if (status === 200) {
-        setEmpdata(data.data);
-        setapidata(data.data);
-      }
-    };
-    if (update) {
-      setEmpdata(apidata);
-      // setapidata(data.data);
-    } else {
-      fetchdata();
-    }
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <>
       <div className="container ">
         <h1 className="text-center"> Table Data</h1>
       </div>
+
+      <div className="container d-flex justify-content-end">
+        {/* <h1 className="text-center"> Table Data</h1> */}
+        <Link
+          to={`/add`}
+          // onClick={() => {
+          //   seteditdata({ ...data });
+          // }}
+          className="btn btn-success btn-block"
+        >
+          Add Data
+        </Link>
+      </div>
+
       <div className="container">
         <table className="table table-striped border">
           <thead>
@@ -69,7 +69,7 @@ export function Home({
             </tr>
           </thead>
           <tbody>
-            {empdata?.map((data, index) => {
+            {apidata?.map((data, index) => {
               return (
                 <tr key={index}>
                   <th scope="row">{index + 1}</th>
@@ -84,7 +84,7 @@ export function Home({
                       className="btn btn-danger btn-block"
                       onClick={() => {
                         console.log(data.id);
-                        removeelement(data.id);
+                        removeelement(index);
                       }}
                     >
                       {" "}
@@ -95,9 +95,9 @@ export function Home({
                     {/* name login */}
                     {/* organization */}
                     <Link
-                      to={`/edit/${data.id}`}
+                      to={`/edit/${index}`}
                       onClick={() => {
-                        seteditdata({ ...data });
+                        // seteditdata({ ...data });
                       }}
                       className="btn btn-success btn-block"
                     >
@@ -106,7 +106,7 @@ export function Home({
                   </td>
                   <td>
                     <Link
-                      to={`/user/${data.id}`}
+                      to={`/user/${index}`}
                       className="btn btn-primary btn-block"
                     >
                       View

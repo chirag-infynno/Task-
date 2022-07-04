@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import * as yup from "yup";
+import React from "react";
+import { Formik } from "formik";
 export function Edit({
   edit,
   setedit,
@@ -8,157 +11,171 @@ export function Edit({
   update,
   setupdate,
 }) {
-  const [formdata, setformdata] = useState({});
+  const location = useLocation();
+
+  const { id } = useParams();
+
+  console.log("inside component", location);
+
   let navigate = useNavigate();
-  function handlechange(e) {
-    const { name, value } = e.target;
-    setformdata({ ...formdata, [name]: value });
+
+  function editdata(value) {
+    const newdata = apidata.map((data, index) => {
+      if (index == id) {
+        // console.log("ohih");
+        return { ...value, id: id + 1 };
+      } else {
+        return data;
+      }
+    });
+
+    setapidata(newdata);
+    navigate("/");
+    // setupdate(true);
   }
 
-  async function submitdata(e) {
-    if (
-      formdata.first_name == "" ||
-      formdata.last_name == "" ||
-      formdata.email == ""
-    ) {
-    } else {
-      const newdata = apidata.map((data) => {
-        if (data.id == edit.id) {
-          return formdata;
-        } else {
-          return data;
-        }
-      });
-
-      setapidata(newdata);
-      setupdate(true);
-      // navigator
-      console.log("new data", newdata);
-      navigate("/");
-    }
-  }
+  const validationSchema = yup.object({
+    email: yup.string().required(),
+    first_name: yup.string().required("First Name is require"),
+    last_name: yup.string().required("Last Name is require"),
+  });
 
   useEffect(() => {
-    setformdata(edit);
+    if (location.pathname.match("/edit/")) {
+      console.log("yes");
+    }
+    console.log("final", apidata);
+    // setformdata(edit);
   }, []);
 
   return (
     <>
-      <div className="container rounded bg-white mt-5 mb-5 k">
-        <div className="row">
-          <div className="col border-right">
-            <div className="d-flex flex-column align-items-center text-center p-3 py-5">
-              <img
-                className="rounded-circle mt-5"
-                width="150px"
-                src={formdata.avatar}
-                alt="/"
-              />
-              <span className="font-weight-bold">Edogaru</span>
-              <span className="text-black-50">edogaru@mail.com.my</span>
-              <span> </span>
-            </div>
-          </div>
-          <div className="col border-right">
-            <div className="p-3 py-5">
-              <div className="d-flex justify-content-between align-items-center mb-3">
-                <h4 className="text-right">Profile Settings</h4>
+      <div className="container-fluid vh-100" style={{ marginTop: "30px" }}>
+        <div className="" style={{ marginTop: "100px" }}>
+          <div className="rounded d-flex justify-content-center">
+            <div className="col-md-4 col-sm-12 shadow-lg p-5 bg-light">
+              <div className="text-center">
+                <h3 className="text-primary">Create Account</h3>
               </div>
-              <div className="row mt-2">
-                {/* <div className="col-md-6"><label className="h6">Name</label><input type="text" className="form-control" placeholder="first name" value=""></div> */}
-                <div className="col-md-8">
-                  <h6
-                    className={
-                      formdata?.first_name == ""
-                        ? "d-block text-danger"
-                        : "d-none"
+              <div className="p-4">
+                <Formik
+                  initialValues={{
+                    email: !id ? "" : apidata[id].email,
+                    first_name: !id ? "" : apidata[id].first_name,
+                    last_name: !id ? "" : apidata[id].last_name,
+                  }}
+                  validationSchema={validationSchema}
+                  onSubmit={(values, { setSubmitting }) => {
+                    // setapidata([...apidata, [values]]);
+                    console.log(values);
+                    console.log();
+                    if (location.pathname.match("/edit/")) {
+                      editdata(values);
+                      navigate("/");
+                      //
+                    } else {
+                      setapidata([...apidata, values]);
+                      navigate("/");
                     }
-                  >
-                    please enter first Name
-                  </h6>
-                  <label className="h6">First Name</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    value={formdata.first_name}
-                    placeholder="surname"
-                    onChange={handlechange}
-                    name="first_name"
-                  />
-                </div>
-              </div>
-              <div className="row mt-2">
-                <div className="col-md-8">
-                  <h6
-                    className={
-                      formdata?.last_name == ""
-                        ? "d-block text-danger"
-                        : "d-none"
-                    }
-                  >
-                    Please Enter Last Name
-                  </h6>
-
-                  <label className="h6">Last Name</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    value={formdata.last_name}
-                    onChange={handlechange}
-                    placeholder="surname"
-                    name="last_name"
-                  />
-                </div>
-              </div>
-              <div className="row mt-3">
-                <div className="col-md-8">
-                  <h6
-                    className={
-                      formdata?.email == "" ? "d-block text-danger" : "d-none"
-                    }
-                  >
-                    please enter last email
-                  </h6>
-
-                  <h1 className="h6">Email</h1>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="enter phone number"
-                    value={formdata.email}
-                    onChange={handlechange}
-                    // onChange={}
-                    name="email"
-                  />
-                </div>
-              </div>
-              {/* <div className="row mt-3">
-                <div className="col-md-6">
-                  <label className="h6">Email</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="country"
-                    value={formdata.email}
-                  />
-                </div>
-              </div> */}
-              <div className="mt-5 text-center d-flex justify-content-start">
-                <button
-                  className="btn btn-primary profile-button"
-                  type="button"
-                  onClick={() => submitdata()}
+                    // setTimeout(() => {
+                    //   alert(JSON.stringify(values, null, 2));
+                    //   setSubmitting(false);
+                    // }, 400);
+                  }}
                 >
-                  Save Profile
-                </button>
+                  {({
+                    values,
+                    errors,
+                    touched,
+                    handleChange,
+                    handleBlur,
+                    handleSubmit,
+                    isSubmitting,
+                    /* and other goodies */
+                  }) => (
+                    <form onSubmit={handleSubmit}>
+                      <a style={{ color: "red" }}>
+                        {" "}
+                        {errors.email && errors.email}
+                      </a>{" "}
+                      <div className="input-group mb-3">
+                        <span className="input-group-text bg-primary">
+                          <i className="bi bi-person-plus-fill text-white"></i>
+                        </span>
+
+                        <input
+                          type="text"
+                          name="email"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.email}
+                          placeholder="Email"
+                          className="form-control"
+                        />
+                      </div>
+                      <a style={{ color: "red" }}>
+                        {" "}
+                        {errors.first_name && errors.first_name}
+                      </a>{" "}
+                      <div className="input-group mb-3">
+                        <span className="input-group-text bg-primary">
+                          <i className="fi fi-person-plus-fill text-white"></i>
+                        </span>
+                        <input
+                          onChange={handleChange}
+                          value={values.first_name}
+                          type="text"
+                          className="form-control"
+                          name="first_name"
+                          placeholder="First Name"
+                        />
+                      </div>
+                      <a style={{ color: "red" }}>
+                        {" "}
+                        {errors.last_name && errors.last_name}
+                      </a>{" "}
+                      <div className="input-group mb-3">
+                        <span className="input-group-text bg-primary">
+                          <i className="bi bi-person-plus-fill text-white"></i>
+                        </span>
+                        <input
+                          onChange={handleChange}
+                          // value={}
+                          value={values.last_name}
+                          type="text"
+                          className="form-control"
+                          name="last_name"
+                          placeholder="Last Name"
+                        />
+                      </div>
+                      {/* <input
+                        type="password"
+                        name="password"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.password}
+                      />
+                      {errors.password && touched.password && errors.password} */}
+                      {/* <button type="submit" disabled={isSubmitting}>
+                        Submit
+                      </button> */}
+                      <div className="d-grid col-12 mx-auto">
+                        <button
+                          className="btn btn-primary"
+                          type="submit"
+                          disabled={isSubmitting}
+                        >
+                          Sign up
+                        </button>
+                      </div>
+                    </form>
+                  )}
+                </Formik>
               </div>
             </div>
           </div>
         </div>
       </div>
-      {/* </div> */}
-      {/* </div>
-</div> */}
     </>
   );
 }

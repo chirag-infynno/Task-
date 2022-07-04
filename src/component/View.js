@@ -1,20 +1,28 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export function View({ update, apidata }) {
   const [empdata, setEmpdata] = useState([]);
 
   const { id } = useParams();
   console.log(id);
+  const navigate = useNavigate();
   const fetchdata = async () => {
-    const { data, status } = await axios.get(
-      `https://reqres.in/api/users/${id}`
-    );
+    try {
+      const { data, status } = await axios.get(
+        `https://reqres.in/api/users/${id}`
+      );
 
-    if (status == 200) {
-      console.log("apidata", data.data);
-      setEmpdata(data.data);
+      if (status == 200) {
+        console.log("apidata", data.data);
+        setEmpdata(data.data);
+      }
+    } catch (err) {
+      console.log(err.response.status);
+      if (err.response.status == 404) {
+        navigate("error");
+      }
     }
   };
 
@@ -22,8 +30,8 @@ export function View({ update, apidata }) {
     console.log("update", update);
     if (update) {
       console.log("apidata", apidata);
-      const newdata = apidata.filter((data) => {
-        if (data.id == id) {
+      const newdata = apidata.filter((data, index) => {
+        if (index == id) {
           return data;
         }
       });
