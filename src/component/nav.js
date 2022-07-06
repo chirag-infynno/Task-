@@ -8,12 +8,10 @@ export function Nav() {
         <span className="dramatic_lable">DRAMATIC</span>
 
         <div className="links">
-          {/* <A>/
-          </A> */}
-          <a className="a-link" id="active" style={{}}>
+          <span className="a-link" id="active" style={{}}>
             Home
-          </a>
-          <a
+          </span>
+          <span
             className="a-link"
             style={{
               marginLeft: "14px",
@@ -21,15 +19,16 @@ export function Nav() {
             }}
           >
             TV SHOW
-          </a>
-          <a className="a-link">MOVIES</a>
-          <a className="a-link">NEW</a>
+          </span>
+          <span className="a-link">MOVIES</span>
+          <span className="a-link">NEW</span>
         </div>
 
         <div className="all-input">
           <div className="input-icons">
             <input className="input" type="text" placeholder="search" />
             <FaSearch
+              // clas
               style={{
                 color: "white",
                 marginRight: "17px",
