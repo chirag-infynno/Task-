@@ -26,7 +26,7 @@ export function Nav() {
 
         <div className="all-input">
           <div className="input-icons">
-            <input className="input" type="text" placeholder="search" />
+            <input className="input" type="text" placeholder="SEARCH" />
             <FaSearch
               // clas
               style={{

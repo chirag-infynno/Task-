@@ -5,31 +5,25 @@ import { useEffect } from "react";
 import axios from "axios";
 import Slider from "react-slick";
 import { useState } from "react";
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
+// import Swiper from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper";
+import "swiper/css";
+import "swiper/css/pagination";
 export function MustWatch(props) {
-  console.log(props);
-  var settings = {
-    dots: false,
-    infinite: true,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    autoplay: false,
-    autoplaySpeed: 2000,
-    pauseOnHover: true,
-  };
-  // var settings = {
-  //   // arrows: false,
-  //   dots: true,
-  //   infinite: true,
-  //   speed: 500,
-  //   slidesToShow: 1,
-  //   slidesToScroll: 1,
-  // };
+  const [buttonColor, setButtonColor] = useState({
+    hindi: "active",
+  });
   const [movie, setmovie] = useState([]);
+
+  function changebuttoncolor(e) {
+    setButtonColor({
+      ...buttonColor,
+      [e.target.name]: buttonColor[e.target.name] == "active" ? "" : "active",
+    });
+  }
 
   const moiedata = async () => {
     const { data, status } = await axios.get(
@@ -44,7 +38,6 @@ export function MustWatch(props) {
   return (
     <>
       <section className="moviesToWatch">
-        {/* {props.MustWatch || props.RECOMMENDED || props.BOLLYWOOD} )&& */}
         <div className="must-watch-start">
           <div className="movieHeading">
             <span className="must-watch-span">
@@ -56,7 +49,7 @@ export function MustWatch(props) {
           {props.MustWatch && (
             <div className="filterbtn">
               <button>
-                Filter <FaAngleDown />
+                FILTERS <FaAngleDown />
               </button>
             </div>
           )}
@@ -67,22 +60,86 @@ export function MustWatch(props) {
               display: "flex",
               alignItems: "center",
               gap: "21px",
-              marginLeft: "23px",
+              paddingLeft: "23px",
+              paddingTop: "21px",
             }}
           >
-            <button className="btn-all"> Hindi</button>
-            <button className="btn-all"> Bengali</button>
-            <button className="btn-all"> Marathi</button>
-            <button className="btn-all"> Assamese</button>
-            <button className="btn-all"> Telugu</button>
-            <button className="btn-all"> Tamil</button>
-            <button className="btn-all"> Malayalam</button>
-            {/* <button className="btn-all"> home</button> */}
+            <button
+              className={`btn-all${
+                !buttonColor.hindi ? "" : "-" + buttonColor.hindi
+              }`}
+              name="hindi"
+              onClick={changebuttoncolor}
+            >
+              {" "}
+              Hindi
+            </button>
+            <button
+              className={`btn-all${
+                !buttonColor.Bengali ? "" : "-" + buttonColor.Bengali
+              }`}
+              onClick={changebuttoncolor}
+              name="Bengali"
+            >
+              {" "}
+              Bengali
+            </button>
+            <button
+              className={`btn-all${
+                !buttonColor.Marathi ? "" : "-" + buttonColor.Marathi
+              }`}
+              onClick={changebuttoncolor}
+              name="Marathi"
+            >
+              Marathi
+            </button>
+            <button
+              className={`btn-all${
+                !buttonColor.Assamese ? "" : "-" + buttonColor.Assamese
+              }`}
+              onClick={changebuttoncolor}
+              name="Assamese"
+            >
+              Assamese
+            </button>
+            <button
+              className={`btn-all${
+                !buttonColor.Telugu ? "" : "-" + buttonColor.Telugu
+              }`}
+              onClick={changebuttoncolor}
+              name="Telugu"
+            >
+              {" "}
+              Telugu
+            </button>
+            <button
+              className={`btn-all${
+                !buttonColor.Tamil ? "" : "-" + buttonColor.Tamil
+              }`}
+              onClick={changebuttoncolor}
+              name="Tamil"
+            >
+              {" "}
+              Tamil
+            </button>
+            <button
+              className={`btn-all${
+                !buttonColor.Malayalam ? "" : "-" + buttonColor.Malayalam
+              }`}
+              onClick={changebuttoncolor}
+              name="Malayalam"
+            >
+              {" "}
+              Malayalam
+            </button>
           </div>
         )}
 
-        <div className="slideBar "> {movie && <Card {...{ movie }} />}</div>
-        {/* )} */}
+        <div className="slider-content ">
+          {movie && <Card {...{ movie }} />}
+        </div>
+
+        <section className="similler-movie"></section>
       </section>
     </>
   );

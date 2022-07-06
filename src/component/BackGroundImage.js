@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import user1 from "../../src/img/users1.png";
 import list from "../../src/img/list(1).png";
 import download from "../../src/img/download.png";
@@ -8,49 +9,62 @@ import { FaPlay, FaPlus } from "react-icons/fa";
 import imbd from "../../src/img/imdb.png";
 
 export function BackGroundImage() {
+  const { id } = useParams();
+  console.log("id", id);
+
+  if (id) {
+    console.log("yes");
+  }
   const [movie, setmovie] = useState([]);
   const [image, setimage] = useState([]);
-  const [background, setBackground] = useState(false);
-  useEffect(() => {
-    const fetchapi = async () => {
-      const { data, status } = await axios.get(
-        "https://api.themoviedb.org/3/movie/634649-spider-man-no-way-home?api_key=ac302597611eaf3f79a8fee2cb0cf0bd"
-      );
-      if (status == 200) {
-        setmovie(data);
-      }
-    };
-    const fetchimage = async () => {
-      const { data, status } = await axios.get(
-        "https://api.themoviedb.org/3/movie/634649-spider-man-no-way-home/images?api_key=ac302597611eaf3f79a8fee2cb0cf0bd"
-      );
-      if (status == 200) {
-        setimage(data);
-        setBackground(true);
-      }
-    };
 
+  const [background, setBackground] = useState(false);
+  const fetchapi = async () => {
+    const { data, status } = await axios.get(
+      `https://api.themoviedb.org/3/movie/634649-spider-man-no-way-home?api_key=ac302597611eaf3f79a8fee2cb0cf0bd`
+    );
+    if (status == 200) {
+      console.log("new", data);
+      fetchimage();
+
+      setmovie(data);
+    }
+  };
+  const fetchimage = async () => {
+    const { data, status } = await axios.get(
+      `https://api.themoviedb.org/3/movie/634649-spider-man-no-way-home/images?api_key=ac302597611eaf3f79a8fee2cb0cf0bd`
+    );
+    if (status == 200) {
+      setimage(data);
+      setBackground(true);
+    }
+  };
+
+  useEffect(() => {
     fetchapi();
-    fetchimage();
-  }, []);
-  // if (image.length === 0) {
-  //   return <p>loding</p>;
-  // }
+  }, [id]);
+
   return (
     <>
-      {/* <div className="img"> */}
-      {/* <img
-        src={`https://image.tmdb.org/t/p/original/${image.backdrops[0].file_path}`}
-        className="posterImg"
-        alt="background_image"
-      /> */}
-
       {image?.logos && (
-        <img
-          src={`https://image.tmdb.org/t/p/original/${image.backdrops[1].file_path}`}
-          className="posterImg"
-          alt="avtar"
-        />
+        <div
+          style={{
+            // width: "1340px",
+            position: "absolute",
+            // position: absolute;
+            width: "100%",
+            overflow: "hidden",
+            height: "100vh",
+            maxWidth: "1440px",
+          }}
+        >
+          {" "}
+          <img
+            src={`https://image.tmdb.org/t/p/original/${image.backdrops[1].file_path}`}
+            className="posterImg"
+            alt="avtar"
+          />
+        </div>
       )}
       <div className="leftside-bar">
         <img src={user1} alt="icons" className="leftside-icon" />
@@ -62,7 +76,7 @@ export function BackGroundImage() {
         {image?.logos && (
           <>
             <img
-              src={`https://image.tmdb.org/t/p/original/${image.logos[0]?.file_path}`}
+              src={`https://image.tmdb.org/t/p/original/${image?.logos[0].file_path}`}
               style={{
                 width: "424px",
                 height: "180px",
@@ -80,8 +94,9 @@ export function BackGroundImage() {
                 style={{
                   width: "560px",
                   color: "white",
-                  height: "128px",
+                  // height: "128px",
                 }}
+                className="overview"
               >
                 {movie.overview}
               </p>
