@@ -17,9 +17,7 @@ export function BackGroundImage() {
         "https://api.themoviedb.org/3/movie/634649-spider-man-no-way-home?api_key=ac302597611eaf3f79a8fee2cb0cf0bd"
       );
       if (status == 200) {
-        // console.log("first", data);
         setmovie(data);
-        console.log(data);
       }
     };
     const fetchimage = async () => {
@@ -27,12 +25,9 @@ export function BackGroundImage() {
         "https://api.themoviedb.org/3/movie/634649-spider-man-no-way-home/images?api_key=ac302597611eaf3f79a8fee2cb0cf0bd"
       );
       if (status == 200) {
-        console.log("image", data);
-
         setimage(data);
         setBackground(true);
       }
-      console.log(data);
     };
 
     fetchapi();
@@ -67,38 +62,44 @@ export function BackGroundImage() {
         {image?.logos && (
           <>
             <img
-              src={`https://image.tmdb.org/t/p/original/${image.logos[0].file_path}`}
-              // className="posterImg"
+              src={`https://image.tmdb.org/t/p/original/${image.logos[0]?.file_path}`}
               style={{
                 width: "424px",
                 height: "180px",
               }}
               alt="avtar"
             />
-
-            <p
+            <div
               style={{
-                // height: "150px",
-                width: "560px",
-                color: "white",
+                display: "flex",
+                flexDirection: "column",
+                gap: "10px",
               }}
             >
-              {movie.overview}{" "}
-            </p>
-
-            <div className="movie-type">
-              <span
+              <p
                 style={{
-                  color: "#FF2E00",
+                  width: "560px",
+                  color: "white",
+                  height: "128px",
                 }}
               >
-                GENRES{" "}
-              </span>
-              <span
-                style={{
-                  color: "white",
-                }}
-              >{`${movie.genres[0].name} ${movie.genres[1].name}`}</span>
+                {movie.overview}
+              </p>
+
+              <div className="movie-type">
+                <span
+                  style={{
+                    color: "#FF2E00",
+                  }}
+                >
+                  GENRES{" "}
+                </span>
+                <span
+                  style={{
+                    color: "white",
+                  }}
+                >{`${movie.genres[0]?.name} ${movie.genres[1]?.name}`}</span>
+              </div>
             </div>
 
             <div className="buttons-list">
@@ -124,14 +125,11 @@ export function BackGroundImage() {
             </div>
 
             <div className="ratings">
-              {/* imbd */}
               <img src={imbd} alt="imdb_image"></img>
               <span className="avg-rating">{movie?.vote_average} </span>
-              {/* <div className="rting-4k"> */}
               <p className="rting-u">U/A</p>
               <p className="rting-4k">4k</p>
               <p className="year">
-                {" "}
                 {movie?.vote_average &&
                   new Date(movie.release_date).getFullYear()}{" "}
               </p>

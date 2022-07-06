@@ -1,6 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Griffy&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Griffy&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Griffy&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -8,7 +14,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(90deg, #000000 17.76%, rgba(0, 0, 0, 0.687449) 41.44%, rgba(196, 196, 196, 0) 100%);
+  /* background: linear-gradient(90deg, #000000 17.76%, rgba(0, 0, 0, 0.687449) 41.44%, rgba(196, 196, 196, 0) 100%); */
+  /* background: #000000; */
+/* background: black; */
 }
 
 
@@ -125,7 +133,7 @@ code {
   z-index: -1;
 
   width: 100%;
-  height: 100vh;
+  height: 130vh;
 
 }
 
@@ -142,7 +150,7 @@ code {
   display: flex;
   justify-content: center;
   width: 89%;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   margin-left: 122px;
 }
 
@@ -151,12 +159,12 @@ code {
 .image-details{
 
   margin-top: 22px;
-      border: 1px solid;
+      /* border: 1px solid; */
       margin-left: 123px;
       display: flex ;
       flex-direction: column;
       align-items: start;
-      gap: 8px
+      gap: 16px
     }
 
     /* } */
@@ -170,6 +178,7 @@ code {
 
 /* button list*/
 .buttons-list{
+  /* margin-top: ; */
   display: flex;
   gap:21px
 }
@@ -182,7 +191,7 @@ code {
   
   background: #5436A9;
   border-radius: 30px;
-  
+  border: none;
 /* text */
 }
 
@@ -194,6 +203,7 @@ code {
   line-height: 24px;
   /* text-decoration:#FFFFFF ; */
   color:whitesmoke ;
+
   /* font-c/ */
   /* color: ; */
 
@@ -207,7 +217,8 @@ code {
   top: 486px;
   
   background: #5C5C5C;
-  border-radius: 30px
+  border-radius: 30px;
+  border: none;
 }
 
 .ratings{
@@ -263,4 +274,176 @@ font-size: 20px;
 line-height: 24px;
 
 color: #959595;
+}
+
+
+
+
+
+
+
+
+/* card component start
+ */
+ .moviesToWatch{
+
+  margin-top: 32px;
+  margin-left: 124px;
+display: flex;
+flex-direction: column;
+gap: 21px;
+
+background: rgba(11, 15, 22, 0.47);
+box-shadow: 8px -8px 10px rgba(0, 0, 0, 0.25);
+backdrop-filter: blur(25px);
+/* Note: backdrop-filter has minimal browser support */
+
+border-radius: 24px;
+  
+}
+
+
+.must-watch-start{
+  display: flex;
+  padding-top: 21px;
+justify-content: space-between;
+align-items: center;
+}
+.filterbtn button{
+  width: 139px;
+  height: 40px;
+  background: #5C5C5C;
+  border-radius: 30px;
+ 
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  
+  color: #FFFFFF;
+
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 9px;
+}
+
+
+
+.btn-all{
+/* 
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px; */
+
+
+  display: flex;
+  /* width: 133px; */
+  /* height: 40px; */
+  background: #5C5C5C;
+  border-radius: 30px;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  align-items: center;
+  color: #FFFFFF;
+  padding: 10px 25px;
+
+}
+  
+/* } */
+  
+ /* } */
+
+
+
+.slideBar{
+  /* margin-top: 26px; */
+  /* height: 302px; */
+  margin-left: 26px;
+  display: flex;
+  overflow: hidden;
+gap:30px
+
+}
+
+/* start  must watch card*/
+.must-watch-span{
+  /* margin-top: 26px; */
+  margin-left: 23px;
+  color: whitesmoke;
+}
+
+.card{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  /* margin-left: 23px;  */
+}
+
+.movieCard{
+  /* height: 300px; */
+  /* height: 168px; */
+  /* border: 1px solid green; */
+}
+
+.moiveTtile-p{
+  /* text-align: center; */
+  color: #FFFFFF;
+  font-family: 'Montserrat';
+font-style: normal;
+font-weight: 700;
+font-size: 16px;
+line-height: 20px;
+width: 168px;
+text-overflow: ellipsis;
+white-space: nowrap;
+overflow: hidden;
+/* identical to box height */
+
+
+color: #FFFFFF;
+}
+
+.realeasDate p{
+
+  color: #FFFFFF;
+  font-family: 'Montserrat';
+font-style: normal;
+font-weight: 700;
+font-size: 16px;
+line-height: 20px;
+white-space: nowrap;
+overflow: hidden;
+}
+
+.IMDB{
+display: flex;
+align-items: center;
+gap :5px
+}
+.movieRate p{
+  
+  font-family: 'Montserrat';
+font-style: normal;
+font-weight: 700;
+font-size: 11px;
+line-height: 13px;
+
+color: #FFC907;
+
+}
+.moiveRight{
+  display: flex;
+  gap:5px
+}
+.movieRating{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
