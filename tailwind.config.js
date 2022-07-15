@@ -5,7 +5,7 @@ module.exports = {
     extend: {
       colors: {
         "back-color": "rgb(0, 18, 64)",
-        "header-text-color": "rgb(255, 80, 0);",
+        "header-color": "rgb(255, 80, 0);",
       },
     },
   },
