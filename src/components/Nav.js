@@ -28,7 +28,7 @@ function classNames(...classes) {
 export function Nav() {
   return (
     <>
-      <div className="  fixed top-0 left-0 right-0 bg-back-color  mx-auto max-w-[1366px] ">
+      <div className="  fixed top-0 left-0 right-0 bg-back-color  mx-auto max-w-[1366px] z-[1000] ">
         <div className="px-[163px] flex justify-between">
           <div className="flex gap-[50px]  m">
             <img
