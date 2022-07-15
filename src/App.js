@@ -8,7 +8,6 @@ export default function App() {
   return (
     <>
       <BrowserRouter>
-        {/* <Router> */}
         <Nav />
         <Routes>
           <Route
@@ -24,7 +23,6 @@ export default function App() {
           <Route path="/:id" element={<ScoreBord />} excet></Route>
         </Routes>
         <Footer />
-        {/* </Router> */}
       </BrowserRouter>
     </>
   );

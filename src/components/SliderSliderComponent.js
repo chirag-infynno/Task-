@@ -50,10 +50,7 @@ export function SliderComponent() {
       const newdata = data.data.filter((data, index) => {
         return index === 33;
       });
-      // console.log(newdata, " data");
-      // console.log();
-      // setapidata(data.data);
-      // console.log(newdata, " data");
+
       setapidata(updatedata);
     }
   }

@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineDown } from "react-icons/ai";
 
-export const ScoreCard = () => {
+export const ScoreCard = ({ apidata, alldata, hometeam, visitorteam }) => {
+  console.log(apidata);
   const [dropDown, setDropDown] = useState(false);
 
   function DropDown() {
@@ -11,20 +12,24 @@ export const ScoreCard = () => {
       setDropDown(true);
     }
   }
+  useEffect(() => {});
 
   return (
     <>
-      <section className="flex justify-center items-center bg-white">
+      <section className=" flex justify-center items-center bg-white">
         <div className="flex flex-col w-[660px]">
           <div className="topTitle border-b-[1px] border-b-[#e6e6e6] px-[18px] py-[15px] flex justify-between items-center gap-auto w-[100%] bg-[#fafafa] h-[50px]">
             <div className="code">
               <p className="text-[16px] text-[#141414] font-[600] leading-5">
-                {/* {score.localteam.code} */}hello
+                {/* {score.localteam.code}hello */}
+                {hometeam && alldata.localteam?.code}
+                {visitorteam && alldata.visitorteam?.code}
               </p>
             </div>
-            <div className="scrollBar flex gap-[40px] justify-center items-center">
+            <div className="scrollBar flex gap-[40px] justify-center items-center bg-[#FAFAFA]">
               <div className="runs">
                 <p className="text-[14px] text-[#141414] font-[600] leading-5">
+                  {hometeam && alldata.localteam?.code}
                   123/74
                 </p>
               </div>
@@ -41,11 +46,57 @@ export const ScoreCard = () => {
           <div
             className={`${
               dropDown
-                ? "h-[100%] transition ease-in-out delay-[1000ms]"
-                : "h-[0] transition ease-in-out delay-[1000ms] overflow-hidden"
+                ? "h-[100%] "
+                : "h-[0]  transition ease-in-out delay-[1000ms] overflow-hidden"
             }`}
           >
-            <div className="border-[1px] border-red-800 mx-[10px]"> a</div>
+            <div className=" mx-[10px]  my-[10px]  ">
+              <div className="bg-[#FAFAFA] flex justify-between py-[10px] px-[10px]">
+                <div>
+                  <span>BATSMAN</span>
+                </div>
+                <div className="flex items-center">
+                  {" "}
+                  <span className="w-[60px]">R</span>{" "}
+                  <span className="w-[60px]">B</span>{" "}
+                  <span className="w-[60px]">4s</span>{" "}
+                  <span className="w-[60px]">6s</span>{" "}
+                  <span className="w-[60px]">S/R</span>
+                </div>
+              </div>
+
+              {apidata &&
+                apidata.map((data, index) => {
+                  return (
+                    <div
+                      className="px-[10px] my-[10px] flex flex-col"
+                      key={index}
+                    >
+                      <div className="flex justify-between  w-[100%] items-center">
+                        <div>
+                          <span className="text-[rgb(0,129,255)] text-[14px]">
+                            {data.batsman.fullname}
+                          </span>
+                        </div>
+                        <div className="flex  ">
+                          <span className=" min-w-[60px]">{data.score}</span>
+                          <span className=" w-[60px]">{data.ball}</span>
+                          <span className=" w-[60px]">{data.four_x}</span>
+                          <span className=" w-[60px]">{data.six_x}</span>
+                          <span className=" w-[60px]">{data.rate}</span>
+                        </div>
+                      </div>
+                      <div className="flex   w-[100%] items-start text-[11px] text-[#787878]">
+                        {data.catchstump?.fullname &&
+                          `c ${data.catchstump?.fullname}`}{" "}
+                        {data.bowler?.fullname
+                          ? `b ${data.bowler?.fullname}`
+                          : "notout"}
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
           </div>
         </div>
       </section>
