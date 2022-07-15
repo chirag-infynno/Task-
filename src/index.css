@@ -7,6 +7,36 @@
   margin: 0px;
   padding: 0px;
 }
+.containeras {
+  /* padding: 40px; */
+  /* background: #419be0; */
+}
+
+.slick-slide img {
+  /* margin: auto; */
+}
+
+/* .slick-list{
+  display: flex;
+} */
+
+
+
+/* .slick-slide img {
+  height: 100%;
+  width: 100%;
+  border: 2.5px solid white;
+  box-sizing: border-box;
+} */
+
+/* .slick-track{
+  display: flex;
+  overflow: hidden;
+}
+
+.slick-slide{
+  width: 200px;
+} */
 
 body {
   margin: 0px;

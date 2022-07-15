@@ -5,7 +5,8 @@ module.exports = {
     extend: {
       colors: {
         "back-color": "rgb(0, 18, 64)",
-        "header-color": "rgb(255, 80, 0);",
+        "header-color": "rgb(255, 80, 0)",
+        "contact-color": "rgb(40, 48, 44)",
       },
     },
   },

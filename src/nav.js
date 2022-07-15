@@ -1,12 +1,10 @@
 import React from "react";
-import { Fragment } from "react";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
-import { DiApple } from "react-icons/di";
-import { FaUserCircle } from "react-icons/fa";
 import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
-import { AiFillApple } from "react-icons/ai";
+import { AiFillApple, AiFillPlayCircle } from "react-icons/ai";
+
 import { IoLogoGooglePlaystore, IoNotificationsOutline } from "react-icons/io5";
 const navigation = [
   { name: "Dashboard", href: "#", current: true },
@@ -18,7 +16,8 @@ const settings = {
   infinite: true,
   speed: 500,
   slidesToShow: 3,
-  slidesToScroll: 3,
+  slidesToScroll: 1,
+  // bre
 };
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -87,37 +86,297 @@ export function Nav() {
         </div>
       </div>
 
-      <div>
-        <h2> Multiple items </h2>
-        <Slider {...settings}>
-          <div>
-            <h3>1</h3>
+      <div className="h-[132px] bg-back-color max-w-[1366px] mx-auto ">
+        {/* <div className="border-2 border-red-700 flex justify-between">
+          <a className="text-white">Featured Matches</a>
+          <a className="text-white">Featured Matches</a>
+        </div> */}
+
+        <div className=" relative  border-2 border-blue-600-700 w-[340px] mx-[173px] rounded-[10px]">
+          <img
+            src="https://images.fancode.com/eyJrZXkiOiJza2lsbHVwLXVwbG9hZHMvcHJvZC1pbWFnZXMvMjAyMi8wNy9Qb25kaWNoZXJyeV9UMjBNYXRjaC1DYXJkLmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJmaXQiOiJjb3ZlciIsImhlaWdodCI6MTAwLCJ3aWR0aCI6MzI4LCJwb3NpdGlvbiI6InRvcCJ9fX0="
+            className="w-[340px] h-[100px]"
+          ></img>
+          <div className="flex flex-col gap-[4px] pt-[22px] pb-2">
+            <div className="flex items-center justify-between mx-[2px]">
+              <div className="flex gap-[10px]">
+                <div className="flex flex-col">
+                  <img
+                    src="https://d13ir53smqqeyp.cloudfront.net/flags/cr-flags/TUS-CR2@2x.png"
+                    className="w-[32px]"
+                  ></img>
+                  <span>TUS</span>
+                </div>
+                <div className=" flex flex-col">
+                  <span>127/7</span>
+                  <span>20 overs</span>
+                </div>
+              </div>
+              <div className="flex flex-col items-center">
+                <div className="w-[0px] border-[2px] border-[#e6e6e6] h-[10px]"></div>
+                <div className="rounded-full bg-[#e6e6e6] w-4 h-4 flex justify-center items-center">
+                  vs
+                </div>
+                <div className="w-[0px] border-[2px] border-[#e6e6e6] h-[10px]"></div>
+              </div>
+              <div className="flex gap-[10px] flex-row-reverse">
+                <div className="flex flex-col">
+                  <img
+                    src="https://d13ir53smqqeyp.cloudfront.net/flags/cr-flags/TUS-CR2@2x.png"
+                    className="w-[32px]"
+                  ></img>
+                  <span>TUS</span>
+                </div>
+                <div className=" flex flex-col">
+                  <span>127/7</span>
+                  <span>20 overs</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex justify-center items-center">
+              <span>Tuskers XI beat Lions XI by 2 runs</span>
+            </div>
           </div>
-          <div>
-            <h3>2</h3>
+
+          <div className="absolute top-[81px] left-[100px] bg-orange-600 rounded-[20px]">
+            <div className="p-2 flex justify-center items-center  gap-2 ">
+              <AiFillPlayCircle className=" pt-2px" />
+              <span className="text-white">WATCH LIVE</span>
+            </div>
           </div>
-          <div>
-            <h3>3</h3>
-          </div>
-          <div>
-            <h3>4</h3>
-          </div>
-          <div>
-            <h3>5</h3>
-          </div>
-          <div>
-            <h3>6</h3>
-          </div>
-          <div>
-            <h3>7</h3>
-          </div>
-          <div>
-            <h3>8</h3>
-          </div>
-          <div>
-            <h3>9</h3>
-          </div>
-        </Slider>
+        </div>
+
+        <div className="mx-[173px]">
+          <Slider {...settings}>
+            <div>
+              <div className=" relative  border-2 border-blue-600-700 w-[340px]  rounded-[10px]">
+                <img
+                  src="https://images.fancode.com/eyJrZXkiOiJza2lsbHVwLXVwbG9hZHMvcHJvZC1pbWFnZXMvMjAyMi8wNy9Qb25kaWNoZXJyeV9UMjBNYXRjaC1DYXJkLmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJmaXQiOiJjb3ZlciIsImhlaWdodCI6MTAwLCJ3aWR0aCI6MzI4LCJwb3NpdGlvbiI6InRvcCJ9fX0="
+                  className="w-[340px] h-[100px]"
+                ></img>
+                <div className="flex flex-col gap-[4px] pt-[22px] pb-2">
+                  <div className="flex items-center justify-between mx-[2px]">
+                    <div className="flex gap-[10px]">
+                      <div className="flex flex-col">
+                        <img
+                          src="https://d13ir53smqqeyp.cloudfront.net/flags/cr-flags/TUS-CR2@2x.png"
+                          className="w-[32px]"
+                        ></img>
+                        <span>TUS</span>
+                      </div>
+                      <div className=" flex flex-col">
+                        <span>127/7</span>
+                        <span>20 overs</span>
+                      </div>
+                    </div>
+                    <div className="flex flex-col items-center">
+                      <div className="w-[0px] border-[2px] border-[#e6e6e6] h-[10px]"></div>
+                      <div className="rounded-full bg-[#e6e6e6] w-4 h-4 flex justify-center items-center">
+                        vs
+                      </div>
+                      <div className="w-[0px] border-[2px] border-[#e6e6e6] h-[10px]"></div>
+                    </div>
+                    <div className="flex gap-[10px] flex-row-reverse">
+                      <div className="flex flex-col">
+                        <img
+                          src="https://d13ir53smqqeyp.cloudfront.net/flags/cr-flags/TUS-CR2@2x.png"
+                          className="w-[32px]"
+                        ></img>
+                        <span>TUS</span>
+                      </div>
+                      <div className=" flex flex-col">
+                        <span>127/7</span>
+                        <span>20 overs</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex justify-center items-center">
+                    <span>Tuskers XI beat Lions XI by 2 runs</span>
+                  </div>
+                </div>
+
+                <div className="absolute top-[81px] left-[100px] bg-orange-600 rounded-[20px]">
+                  <div className="p-2 flex justify-center items-center  gap-2 ">
+                    <AiFillPlayCircle className=" pt-2px" />
+                    <span className="text-white">WATCH LIVE</span>
+                  </div>
+                </div>
+              </div>
+            </div>{" "}
+            <div>
+              <div className=" relative  border-2 border-blue-600-700 w-[340px]  rounded-[10px]">
+                <img
+                  src="https://images.fancode.com/eyJrZXkiOiJza2lsbHVwLXVwbG9hZHMvcHJvZC1pbWFnZXMvMjAyMi8wNy9Qb25kaWNoZXJyeV9UMjBNYXRjaC1DYXJkLmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJmaXQiOiJjb3ZlciIsImhlaWdodCI6MTAwLCJ3aWR0aCI6MzI4LCJwb3NpdGlvbiI6InRvcCJ9fX0="
+                  className="w-[340px] h-[100px]"
+                ></img>
+                <div className="flex flex-col gap-[4px] pt-[22px] pb-2">
+                  <div className="flex items-center justify-between mx-[2px]">
+                    <div className="flex gap-[10px]">
+                      <div className="flex flex-col">
+                        <img
+                          src="https://d13ir53smqqeyp.cloudfront.net/flags/cr-flags/TUS-CR2@2x.png"
+                          className="w-[32px]"
+                        ></img>
+                        <span>TUS</span>
+                      </div>
+                      <div className=" flex flex-col">
+                        <span>127/7</span>
+                        <span>20 overs</span>
+                      </div>
+                    </div>
+                    <div className="flex flex-col items-center">
+                      <div className="w-[0px] border-[2px] border-[#e6e6e6] h-[10px]"></div>
+                      <div className="rounded-full bg-[#e6e6e6] w-4 h-4 flex justify-center items-center">
+                        vs
+                      </div>
+                      <div className="w-[0px] border-[2px] border-[#e6e6e6] h-[10px]"></div>
+                    </div>
+                    <div className="flex gap-[10px] flex-row-reverse">
+                      <div className="flex flex-col">
+                        <img
+                          src="https://d13ir53smqqeyp.cloudfront.net/flags/cr-flags/TUS-CR2@2x.png"
+                          className="w-[32px]"
+                        ></img>
+                        <span>TUS</span>
+                      </div>
+                      <div className=" flex flex-col">
+                        <span>127/7</span>
+                        <span>20 overs</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex justify-center items-center">
+                    <span>Tuskers XI beat Lions XI by 2 runs</span>
+                  </div>
+                </div>
+
+                <div className="absolute top-[81px] left-[100px] bg-orange-600 rounded-[20px]">
+                  <div className="p-2 flex justify-center items-center  gap-2 ">
+                    <AiFillPlayCircle className=" pt-2px" />
+                    <span className="text-white">WATCH LIVE</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div className=" relative  border-2 border-blue-600-700 w-[340px]  rounded-[10px]">
+                <img
+                  src="https://images.fancode.com/eyJrZXkiOiJza2lsbHVwLXVwbG9hZHMvcHJvZC1pbWFnZXMvMjAyMi8wNy9Qb25kaWNoZXJyeV9UMjBNYXRjaC1DYXJkLmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJmaXQiOiJjb3ZlciIsImhlaWdodCI6MTAwLCJ3aWR0aCI6MzI4LCJwb3NpdGlvbiI6InRvcCJ9fX0="
+                  className="w-[340px] h-[100px]"
+                ></img>
+                <div className="flex flex-col gap-[4px] pt-[22px] pb-2">
+                  <div className="flex items-center justify-between mx-[2px]">
+                    <div className="flex gap-[10px]">
+                      <div className="flex flex-col">
+                        <img
+                          src="https://d13ir53smqqeyp.cloudfront.net/flags/cr-flags/TUS-CR2@2x.png"
+                          className="w-[32px]"
+                        ></img>
+                        <span>TUS</span>
+                      </div>
+                      <div className=" flex flex-col">
+                        <span>127/7</span>
+                        <span>20 overs</span>
+                      </div>
+                    </div>
+                    <div className="flex flex-col items-center">
+                      <div className="w-[0px] border-[2px] border-[#e6e6e6] h-[10px]"></div>
+                      <div className="rounded-full bg-[#e6e6e6] w-4 h-4 flex justify-center items-center">
+                        vs
+                      </div>
+                      <div className="w-[0px] border-[2px] border-[#e6e6e6] h-[10px]"></div>
+                    </div>
+                    <div className="flex gap-[10px] flex-row-reverse">
+                      <div className="flex flex-col">
+                        <img
+                          src="https://d13ir53smqqeyp.cloudfront.net/flags/cr-flags/TUS-CR2@2x.png"
+                          className="w-[32px]"
+                        ></img>
+                        <span>TUS</span>
+                      </div>
+                      <div className=" flex flex-col">
+                        <span>127/7</span>
+                        <span>20 overs</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex justify-center items-center">
+                    <span>Tuskers XI beat Lions XI by 2 runs</span>
+                  </div>
+                </div>
+
+                <div className="absolute top-[81px] left-[100px] bg-orange-600 rounded-[20px]">
+                  <div className="p-2 flex justify-center items-center  gap-2 ">
+                    <AiFillPlayCircle className=" pt-2px" />
+                    <span className="text-white">WATCH LIVE</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div className=" relative  border-2 border-blue-600-700 w-[340px]  rounded-[10px]">
+                <img
+                  src="https://images.fancode.com/eyJrZXkiOiJza2lsbHVwLXVwbG9hZHMvcHJvZC1pbWFnZXMvMjAyMi8wNy9Qb25kaWNoZXJyeV9UMjBNYXRjaC1DYXJkLmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJmaXQiOiJjb3ZlciIsImhlaWdodCI6MTAwLCJ3aWR0aCI6MzI4LCJwb3NpdGlvbiI6InRvcCJ9fX0="
+                  className="w-[340px] h-[100px]"
+                ></img>
+                <div className="flex flex-col gap-[4px] pt-[22px] pb-2">
+                  <div className="flex items-center justify-between mx-[2px]">
+                    <div className="flex gap-[10px]">
+                      <div className="flex flex-col">
+                        <img
+                          src="https://d13ir53smqqeyp.cloudfront.net/flags/cr-flags/TUS-CR2@2x.png"
+                          className="w-[32px]"
+                        ></img>
+                        <span>TUS</span>
+                      </div>
+                      <div className=" flex flex-col">
+                        <span>127/7</span>
+                        <span>20 overs</span>
+                      </div>
+                    </div>
+                    <div className="flex flex-col items-center">
+                      <div className="w-[0px] border-[2px] border-[#e6e6e6] h-[10px]"></div>
+                      <div className="rounded-full bg-[#e6e6e6] w-4 h-4 flex justify-center items-center">
+                        vs
+                      </div>
+                      <div className="w-[0px] border-[2px] border-[#e6e6e6] h-[10px]"></div>
+                    </div>
+                    <div className="flex gap-[10px] flex-row-reverse">
+                      <div className="flex flex-col">
+                        <img
+                          src="https://d13ir53smqqeyp.cloudfront.net/flags/cr-flags/TUS-CR2@2x.png"
+                          className="w-[32px]"
+                        ></img>
+                        <span>TUS</span>
+                      </div>
+                      <div className=" flex flex-col">
+                        <span>127/7</span>
+                        <span>20 overs</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex justify-center items-center">
+                    <span>Tuskers XI beat Lions XI by 2 runs</span>
+                  </div>
+                </div>
+
+                <div className="absolute top-[81px] left-[100px] bg-orange-600 rounded-[20px]">
+                  <div className="p-2 flex justify-center items-center  gap-2 ">
+                    <AiFillPlayCircle className=" pt-2px" />
+                    <span className="text-white">WATCH LIVE</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Slider>
+        </div>
+
+        {/*  */}
       </div>
 
       <div className="bg-back-color  mt-[120px] mx-auto  max-w-[1366px]">
@@ -127,11 +386,12 @@ export function Nav() {
             className="w-[144px]"
           ></img>
         </div>
-        <div className="flex flex-col justify-center items-center gap-[23px] border-1">
-          <div className="">
+
+        <div className="flex flex-col justify-center items-center gap-[23px] border-2 border-contact-color ">
+          <div className="pt-[24px]">
             <span className="text-white">Connect With Us</span>
           </div>
-          <div className="flex justify-center items-center gap-[24px]">
+          <div className="flex justify-center items-center gap-[24px] pb-[24px]">
             <img
               src="https://fancode.com/skillup-uploads/icons/twitter_icon.svg"
               style={{
@@ -150,8 +410,9 @@ export function Nav() {
                 width: "48px",
               }}
             />
-          </div>
-
+          </div>{" "}
+        </div>
+        <div className="flex flex-col justify-center items-center gap-[23px] border-1">
           <div className="px-[32px] w-[100%] flex justify-center items-center gap-[24px]">
             <div className="text-center">
               <p className="text-white ">
