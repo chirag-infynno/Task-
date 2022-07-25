@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { token, url } from "../utils";
 import { useParams } from "react-router-dom";
 import { TailSpin } from "react-loader-spinner";
+import { cleanData } from "../store/cricketmatchslice";
 
 import { AiFillApple, AiFillPlayCircle } from "react-icons/ai";
 import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
@@ -23,6 +24,8 @@ const navigation = [
 ];
 
 export function ScoreBord() {
+  const [bothopen, setBothopen] = useState(false);
+
   // const [localteamnotplay, setlocalteamnotplay] = useState(null);
   // const [visiterteamnotplay, setVisiterteamnotplay] = useState(null);
   // const [homebattig, setHomebating] = useState(null);
@@ -42,12 +45,20 @@ export function ScoreBord() {
     visitorteamid,
     visitorteamdata,
     localteamdata,
+    didnotplayvisitorteam,
+    didnotplaylocalteam,
   } = useSelector((state) => state.cricketMatchApi);
 
   console.log(status);
 
   useEffect(() => {
-    status == "idle" && dispatch(fetchMatchApi(id));
+    dispatch(fetchMatchApi(id));
+
+    return () => {
+      // cancel the subscription
+      dispatch(cleanData());
+      // isApiSubscribed = false;
+    };
   }, []);
   return (
     <>
@@ -113,7 +124,7 @@ export function ScoreBord() {
                 <div className="flex justify-center items-center  w-[134px] py-[14px]">
                   Scorecard
                 </div>
-                <div className="flex justify-center items-center  w-[134px] py-[14px]">
+                <div className="flex justify-center items-center  border-b-[2px] w-[134px]  py-[14px] border-b-fuchsia-900">
                   Squad
                 </div>
               </div>
@@ -125,7 +136,9 @@ export function ScoreBord() {
                 alldata: apidata,
                 hometeam: localteamid,
 
-                // didnotplaylocal: localteamnotplay,
+                didnotplaylocal: didnotplaylocalteam,
+                bothopen: bothopen,
+                setBothopen: setBothopen,
               }}
             />
             <ScoreCard
@@ -133,7 +146,9 @@ export function ScoreBord() {
                 apidata: visitorteamdata,
                 alldata: apidata,
                 hometeam: visitorteamid,
-                // didnotplaylocal: setVisiterteamnotplay,
+                didnotplaylocal: didnotplayvisitorteam,
+                bothopen: bothopen,
+                setBothopen: setBothopen,
               }}
             />
           </div>

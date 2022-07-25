@@ -6,7 +6,7 @@ const initialState = {
   status: "idle",
   data: [],
 };
-export const fetchapi = createAsyncThunk("cricketapi/crickets", () => {
+export const fetchapi = createAsyncThunk("cricketapi/cricket", () => {
   try {
     const response = axios.get(
       `${url}fixtures?api_token=${token}&include=localteam,visitorteam,runs,league,season  `

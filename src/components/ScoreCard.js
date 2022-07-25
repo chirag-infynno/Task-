@@ -82,7 +82,7 @@ export const ScoreCard = ({
                     >
                       <div className="flex justify-between  w-[100%] items-center">
                         <div className="flex items-center gap-[10px]">
-                          <span className="text-[rgb(0,129,255)] text-[14px]">
+                          <span className="text-[rgb(0,129,255)] text-[14px] cursor-pointer">
                             {data.batsman.fullname}
                           </span>
                           {alldata &&
@@ -93,7 +93,7 @@ export const ScoreCard = ({
                                   <>
                                     <span
                                       key={index}
-                                      className="text-[rgb(0,129,255)] text-[14px]"
+                                      className="text-[rgb(0,129,255)] text-[14px] cursor-pointer"
                                     >
                                       (c)
                                     </span>{" "}
@@ -109,7 +109,7 @@ export const ScoreCard = ({
                                   <>
                                     <span
                                       key={index}
-                                      className="text-[rgb(0,129,255)] text-[14px]"
+                                      className="text-[rgb(0,129,255)] text-[14px] cursor-pointer"
                                     >
                                       (wk)
                                     </span>{" "}
@@ -123,7 +123,9 @@ export const ScoreCard = ({
                           <span className=" w-[60px]">{data.ball}</span>
                           <span className=" w-[60px]">{data.four_x}</span>
                           <span className=" w-[60px]">{data.six_x}</span>
-                          <span className=" w-[60px]">{data.rate}</span>
+                          <span className=" w-[60px]">
+                            {data.rate.toFixed(1)}
+                          </span>
                         </div>
                       </div>
                       <div className="flex   w-[100%] items-start text-[11px] text-[#787878]">
@@ -137,7 +139,7 @@ export const ScoreCard = ({
                   );
                 })}
 
-              {/* {didnotplaylocal?.length > 1 && (
+              {didnotplaylocal?.length > 1 && (
                 <div className="px-[10px] my-[10px] flex flex-col">
                   <div className="flex justify-between  w-[100%] items-center">
                     <div>
@@ -152,7 +154,7 @@ export const ScoreCard = ({
                     </div>
                   </div>
                 </div>
-              )} */}
+              )}
 
               {alldata &&
                 alldata?.scoreboards.map((data, index) => {
@@ -228,16 +230,20 @@ export const ScoreCard = ({
                       >
                         <div className="flex justify-between  w-[100%] items-center">
                           <div>
-                            <span className="text-[rgb(0,129,255)] text-[14px]">
+                            <span className="text-[rgb(0,129,255)] text-[14px] cursor-pointer">
                               {data.bowler.fullname}
                             </span>
                           </div>
                           <div className="flex  ">
-                            <span className=" min-w-[60px]">{data.overs}</span>
+                            <span className=" min-w-[60px]">
+                              {data.overs.toFixed(1)}
+                            </span>
                             <span className=" w-[60px]">{data.medians}</span>
                             <span className=" w-[60px]">{data.runs}</span>
                             <span className=" w-[60px]">{data.wickets}</span>
-                            <span className=" w-[60px]">{data.rate}</span>
+                            <span className=" w-[60px]">
+                              {data.rate.toFixed(1)}
+                            </span>
                           </div>
                         </div>
                       </div>
