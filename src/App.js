@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
 import { ScoreBord } from "./components/ScoreBord";
 
 export default function App() {
+  // redux start
   return (
     <>
       <BrowserRouter>
