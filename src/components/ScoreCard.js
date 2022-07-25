@@ -1,9 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { AiOutlineDown } from "react-icons/ai";
 
-export const ScoreCard = ({ apidata, alldata, hometeam, visitorteam }) => {
-  console.log("alldat", alldata);
+export const ScoreCard = ({
+  apidata,
+  alldata,
+  hometeam,
+  visitorteam,
+  scoreboards,
+}) => {
+  const [allteam, setAllteam] = useState([]);
+
   const [dropDown, setDropDown] = useState(false);
+  console.log(alldata);
 
   function DropDown() {
     if (dropDown) {
@@ -16,29 +24,14 @@ export const ScoreCard = ({ apidata, alldata, hometeam, visitorteam }) => {
 
   return (
     <>
-      <div className="bg-[#FAFAFA] flex justify-between py-[10px] px-[10px]">
-        <div>
-          <span>BATSMAN</span>
-        </div>
-        <div className="flex items-center">
-          {" "}
-          <span className="w-[60px]">R</span>{" "}
-          <span className="w-[60px]">B</span>{" "}
-          <span className="w-[60px]">4s</span>{" "}
-          <span className="w-[60px]">6s</span>{" "}
-          <span className="w-[60px]">S/R</span>
-        </div>
-      </div>
       <section className=" flex justify-center items-center bg-white">
         <div className="flex flex-col w-[660px]">
           <div className="topTitle border-b-[1px] border-b-[#e6e6e6] px-[18px] py-[15px] flex justify-between items-center gap-auto w-[100%] bg-[#fafafa] h-[50px]">
             <div className="code">
               <p className="text-[16px] text-[#141414] font-[600] leading-5">
-                {/* {score.localteam.code}hello */}
                 {hometeam && alldata.localteam?.id === hometeam
-                  ? alldata.localteam.code
-                  : alldata.visitorteam.code}
-                {/* {visitorteam && alldata.visitorteam?.code} */}
+                  ? alldata?.localteam.code
+                  : alldata?.visitorteam.code}
               </p>
             </div>
             <div className="scrollBar flex gap-[40px] justify-center items-center bg-[#FAFAFA]">
@@ -92,10 +85,42 @@ export const ScoreCard = ({ apidata, alldata, hometeam, visitorteam }) => {
                       key={index}
                     >
                       <div className="flex justify-between  w-[100%] items-center">
-                        <div>
+                        <div className="flex items-center gap-[10px]">
                           <span className="text-[rgb(0,129,255)] text-[14px]">
                             {data.batsman.fullname}
                           </span>
+                          {alldata &&
+                            alldata?.lineup.map((captain, index) => {
+                              return (
+                                captain.id == data.player_id &&
+                                captain.lineup.captain && (
+                                  <>
+                                    <span
+                                      key={index}
+                                      className="text-[rgb(0,129,255)] text-[14px]"
+                                    >
+                                      (c)
+                                    </span>{" "}
+                                  </>
+                                )
+                              );
+                            })}
+                          {alldata &&
+                            alldata?.lineup.map((captain, index) => {
+                              return (
+                                captain.id == data.player_id &&
+                                captain.lineup.wicketkeeper && (
+                                  <>
+                                    <span
+                                      key={index}
+                                      className="text-[rgb(0,129,255)] text-[14px]"
+                                    >
+                                      (wk)
+                                    </span>{" "}
+                                  </>
+                                )
+                              );
+                            })}
                         </div>
                         <div className="flex  ">
                           <span className=" min-w-[60px]">{data.score}</span>
@@ -113,6 +138,136 @@ export const ScoreCard = ({ apidata, alldata, hometeam, visitorteam }) => {
                           : "notout"}
                       </div>
                     </div>
+                  );
+                })}
+
+              {alldata &&
+                alldata?.scoreboards.map((data, index) => {
+                  return data.team_id == hometeam && data.type == "extra" ? (
+                    <div
+                      className="px-[10px] my-[10px] flex flex-col"
+                      key={index}
+                    >
+                      <div className="flex justify-between  w-[100%] items-center">
+                        <div>
+                          <span className="text-[rgb(20, 20, 20)] text-[18px]">
+                            EXTRA
+                          </span>
+                        </div>
+                        <div className="flex items-center ">
+                          <span className="  text-[18px]">
+                            {data.wide +
+                              data.bye +
+                              data.leg_bye +
+                              data.noball_runs +
+                              data.penalty}
+                          </span>
+                          <span className=" text-[12px] text-[gb(120, 120, 120)]">{`(lb ${data.leg_bye},nb ${data.noball_runs},w ${data.wide},p ${data.penalty})`}</span>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    data.team_id == hometeam && data.type == "total" && (
+                      <div
+                        className="px-[10px] my-[10px] flex flex-col"
+                        key={index}
+                      >
+                        <div className="flex justify-between  w-[100%] items-center">
+                          <div>
+                            <span className="text-[rgb(20, 20, 20)] text-[18px]">
+                              Total Score
+                            </span>
+                          </div>
+                          <div className="flex  ">
+                            <span className=" ">
+                              {data.total}/{data.wickets}{" "}
+                              <span>({data.overs} overs)</span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  );
+                })}
+            </div>
+
+            <div className=" mx-[10px]  my-[10px]  ">
+              <div className="bg-[#FAFAFA] flex justify-between py-[10px] px-[10px]">
+                <div>
+                  <span>BOWLER</span>
+                </div>
+                <div className="flex items-center">
+                  <span className="w-[60px]">O</span>{" "}
+                  <span className="w-[60px]">M</span>{" "}
+                  <span className="w-[60px]">R</span>{" "}
+                  <span className="w-[60px]">W</span>{" "}
+                  <span className="w-[60px]">ECO</span>
+                </div>
+              </div>
+
+              {alldata &&
+                alldata?.bowling.map((data, index) => {
+                  return (
+                    data.team_id === hometeam && (
+                      <div
+                        className="px-[10px] my-[10px] flex flex-col"
+                        key={index}
+                      >
+                        <div className="flex justify-between  w-[100%] items-center">
+                          <div>
+                            <span className="text-[rgb(0,129,255)] text-[14px]">
+                              {data.bowler.fullname}
+                            </span>
+                          </div>
+                          <div className="flex  ">
+                            <span className=" min-w-[60px]">{data.overs}</span>
+                            <span className=" w-[60px]">{data.medians}</span>
+                            <span className=" w-[60px]">{data.runs}</span>
+                            <span className=" w-[60px]">{data.wickets}</span>
+                            <span className=" w-[60px]">{data.rate}</span>
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  );
+                })}
+            </div>
+
+            <div className=" mx-[10px]  my-[10px]  ">
+              <div className="bg-[#FAFAFA] flex justify-between py-[10px] px-[10px]">
+                <div>
+                  <span>FALL OF WICKETS</span>
+                </div>
+                <div className="flex items-center">
+                  <span className="w-[60px]">SCORE</span>{" "}
+                  <span className="w-[60px]">OVER</span>{" "}
+                </div>
+              </div>
+
+              {alldata &&
+                alldata?.batting.map((data, index) => {
+                  return (
+                    data.team_id === hometeam &&
+                    data.fow_balls > 0 && (
+                      <div
+                        className="px-[10px] my-[10px] flex flex-col"
+                        key={index}
+                      >
+                        <div className="flex justify-between  w-[100%] items-center">
+                          <div>
+                            <span className="text-[rgb(0,129,255)] text-[14px]">
+                              {data.batsman.fullname}
+                            </span>
+                          </div>
+                          <div className="flex  ">
+                            <span className=" min-w-[60px]">
+                              {data.fow_score}
+                            </span>
+                            <span className=" w-[60px]">{data.fow_balls}</span>
+                          </div>
+                        </div>
+                      </div>
+                    )
                   );
                 })}
             </div>

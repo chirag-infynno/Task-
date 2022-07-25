@@ -105,16 +105,6 @@ export function ScoreBord() {
                   apidata.visitorteam?.id === apidata?.runs[0].team_id
                     ? `${apidata?.runs[0].score} / ${apidata?.runs[0].wickets}`
                     : `${apidata?.runs[1].score} / ${apidata?.runs[1].wickets}`}
-
-                  {/* {apidata &&
-                    apidata[0]?.localteam_id == apidata[0]?.runs[0].team_id &&
-                    apidata[0]?.runs[1].score +
-                      "/" +
-                      apidata[0]?.runs[1].wickets} */}
-                </span>
-                <span className="text-[12px]">
-                  {/* {apidata?.localteam_id == apidata?.runs[1].team_id &&
-                    `(${apidata?.runs[1].overs})`} */}
                 </span>
               </div>
             </div>
@@ -147,7 +137,6 @@ export function ScoreBord() {
               apidata: hometeam,
               alldata: apidata,
               hometeam: apidata?.localteam_id,
-              scorebord: apidata?.scoreboards,
             }}
           />
           <ScoreCard
@@ -155,7 +144,6 @@ export function ScoreBord() {
               apidata: visiterteam,
               alldata: apidata,
               hometeam: apidata?.visitorteam_id,
-              scorebord: apidata?.scoreboards,
             }}
           />
         </div>
