@@ -31,17 +31,25 @@ export function ScoreBord() {
 
   async function fetchapidata() {
     const { data, status } = await axios.get(
-      `${url}fixtures/${id}?api_token=${token}&include=bowling,batting,runs,lineup,localteam,visitorteam,batting.batsman,bowling.bowler,batting.bowler,balls,batting.catchstump,balls.team`
+      `${url}fixtures/${id}?api_token=${token}&include=bowling,batting,runs,lineup,localteam,visitorteam,batting.batsman,bowling.bowler,batting.bowler,balls,batting.catchstump,balls.team,scoreboards`
     );
     if (status == 200) {
       setApidata([data.data]);
-      console.log(data.data);
+
       const localteam_id = data.data.localteam_id;
-      // const hometeam_details = data.data;/
 
       const visitorteam_id = data.data.visitorteam_id;
-      const localteam_bestmen = data.data.batting.filter((data) => {
-        return data.team_id === localteam_id;
+      const localteam_bestmen = data.data.batting.filter((bestmen) => {
+        if (bestmen.team_id === localteam_id) {
+          const localteam_scorebord = data.data.scoreboards.filter((data) => {
+            if (data.team_id == localteam_id) {
+              return data;
+            }
+          });
+
+          bestmen.scorebord = localteam_scorebord;
+          return bestmen;
+        }
       });
 
       sethometeam(localteam_bestmen);
@@ -49,14 +57,11 @@ export function ScoreBord() {
         return data.team_id == visitorteam_id;
       });
       setvisiterteam(visitorteam_bestmen);
-
-      // console.log("a", visitorteam_bestmen);
     }
   }
 
   useEffect(() => {
-    // console.log(hometeam);
-    fetchapidata();
+    apidata.length === 0 && fetchapidata();
   }, []);
   return (
     <>
@@ -91,7 +96,7 @@ export function ScoreBord() {
             <div className="flex flex-col justify-center items-center">
               <div className="w-[1px] border-[2px] border-[#e6e6e6] h-[15px]"></div>
               <div className="rounded-full bg-[#e6e6e6] w-[24px] h-[24px] flex justify-center items-center">
-                <span className="flex justify-center items-center">vs</span>
+                <span className="flex justify-center items-center">v</span>
               </div>{" "}
               <div className="w-[1px] border-[2px] border-[#e6e6e6] h-[15px]"></div>
             </div>
@@ -99,6 +104,7 @@ export function ScoreBord() {
               <div className="">
                 <span className="bg-[#F89437] text-white p-[1px] ">
                   {apidata && apidata.visitorteam?.code}
+                  {/* {apidata && apidata.visitorteam?.code} */}
                 </span>
               </div>
               <div className="flex gap-[5px]  justify-center items-center">
