@@ -10,7 +10,7 @@ export const fetchapi = createAsyncThunk("api/cricket", () => {
     const response = axios.get(
       "https://dummy.restapiexample.com/api/v1/employees"
     );
-    console.log("data", response);
+    // console.log("data", response);
     return response;
   } catch (er) {
     console.log("nor");

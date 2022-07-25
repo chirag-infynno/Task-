@@ -12,7 +12,7 @@ export default function App() {
   // redux start
   return (
     <>
-      {/* <BrowserRouter>
+      <BrowserRouter>
         <Nav />
         <Routes>
           <Route
@@ -28,9 +28,9 @@ export default function App() {
           <Route path="/:id" element={<ScoreBord />} excet></Route>
         </Routes>
         <Footer />
-      </BrowserRouter> */}
+      </BrowserRouter>
       {/* <CounterData /> */}
-      <Reduxdata />
+      {/* <Reduxdata /> */}
     </>
   );
 }

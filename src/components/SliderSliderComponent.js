@@ -1,4 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
+
+import { useDispatch, useSelector } from "react-redux";
+
 import axios from "axios";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -7,9 +10,10 @@ import { Oval } from "react-loader-spinner";
 
 import { AiFillApple, AiFillPlayCircle } from "react-icons/ai";
 import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
-import { MdBarChart } from "react-icons/md";
 
 import { useNavigate } from "react-router-dom";
+
+import { data, fetchapi } from "../store/cricketapislice";
 
 import { token, url } from "../utils";
 const navigation = [
@@ -29,8 +33,10 @@ const settings = {
 
 export function SliderComponent() {
   const navigate = useNavigate();
-  const [apidata, setapidata] = useState([]);
 
+  const dispatch = useDispatch();
+
+  const apidata = useSelector(data);
   const ref = useRef();
   function nextSlide() {
     ref.current.slickNext();
@@ -38,25 +44,10 @@ export function SliderComponent() {
   function prevSlide() {
     ref.current.slickPrev();
   }
-  async function fetchapidata() {
-    const { data, status } = await axios.get(
-      `${url}fixtures?api_token=${token}&include=localteam,visitorteam,runs,league,season  `
-    );
-    if (status == 200) {
-      const updatedata = data.data.slice(0, 20);
-      console.log(updatedata, "updatedata");
-      const newdata = data.data.filter((data, index) => {
-        return index === 33;
-      });
-
-      setapidata(updatedata);
-    }
-  }
 
   useEffect(() => {
-    if (apidata.length == 0) {
-      fetchapidata();
-    }
+    console.log("apidata", apidata);
+    apidata.status == "idle" && dispatch(fetchapi());
   }, [apidata]);
   return (
     <>
@@ -65,11 +56,10 @@ export function SliderComponent() {
           <a className="text-white">Featured Matches</a>
           <a className="text-white">Featured Matches</a>
         </div>
-
         <div className="relative mx-[180px] ">
           <Slider ref={ref} {...settings}>
-            {apidata.length > 0 ? (
-              apidata.map((data, index) => {
+            {apidata && apidata?.data.length > 0 ? (
+              apidata?.data.map((data, index) => {
                 return (
                   <div className=" " key={index}>
                     <div className=" group relative  w-[315px] ">
@@ -163,11 +153,11 @@ export function SliderComponent() {
                       <div className=" invisible -mt-[12px] pt-3 pb-2  relative w-[315px]   bg-more-cricket-color rounded-b-[20px] flex justify-between z-[-10] group-hover:visible">
                         <div className="flex px-[10px] items-center justify-between w-[98%] ">
                           <div className="flex items-center">
-                            <MdBarChart
+                            {/* <MdBarChart
                               style={{
                                 color: "#EA580C",
                               }}
-                            />
+                            /> */}
                             <span className="pl-[2px] text-[14px]">
                               Points Table
                             </span>

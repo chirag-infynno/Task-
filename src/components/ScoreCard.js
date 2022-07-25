@@ -137,7 +137,7 @@ export const ScoreCard = ({
                   );
                 })}
 
-              {didnotplaylocal?.length > 1 && (
+              {/* {didnotplaylocal?.length > 1 && (
                 <div className="px-[10px] my-[10px] flex flex-col">
                   <div className="flex justify-between  w-[100%] items-center">
                     <div>
@@ -152,7 +152,7 @@ export const ScoreCard = ({
                     </div>
                   </div>
                 </div>
-              )}
+              )} */}
 
               {alldata &&
                 alldata?.scoreboards.map((data, index) => {

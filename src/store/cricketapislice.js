@@ -1,24 +1,25 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { url, token } from "../utils";
 import axios from "axios";
 
 const initialState = {
   status: "idle",
   data: [],
 };
-export const fetchapi = createAsyncThunk("api/cricket", () => {
+export const fetchapi = createAsyncThunk("cricketapi/crickets", () => {
   try {
     const response = axios.get(
-      "https://dummy.restapiexample.com/api/v1/employees"
+      `${url}fixtures?api_token=${token}&include=localteam,visitorteam,runs,league,season  `
     );
-    console.log("data", response);
+    // console.log("data", response);
     return response;
   } catch (er) {
     console.log("nor");
   }
 });
 
-const apislice = createSlice({
-  name: "api",
+const cricketapi = createSlice({
+  name: "cricketapi",
   initialState,
   reducers: {},
   extraReducers(builder) {
@@ -27,8 +28,9 @@ const apislice = createSlice({
         state.status = "loding";
       })
       .addCase(fetchapi.fulfilled, (state, action) => {
+        state.data = action.payload.data.data.slice(0, 20);
         state.status = "success";
-        console.log("action", action.payload.data.data);
+
         state.data = action.payload.data.data;
       })
       .addCase(fetchapi.rejected, (state, action) => {
@@ -37,7 +39,7 @@ const apislice = createSlice({
   },
 });
 
-export default apislice.reducer;
-export const allpost = (state) => state.apislice;
+export default cricketapi.reducer;
+export const data = (state) => state.cricketapislice;
 
 // export const { increment, decrement, incrementByAmount } = counterSlice.act

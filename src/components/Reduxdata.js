@@ -5,7 +5,7 @@ import { allpost, fetchapi } from "../store/apicall";
 export const Reduxdata = () => {
   const dispatch = useDispatch();
   const { status, data } = useSelector(allpost);
-  console.log("a", status, data);
+  // console.log("a", status, data);
   useEffect(() => {
     dispatch(fetchapi());
   }, []);

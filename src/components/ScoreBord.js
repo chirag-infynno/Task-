@@ -14,6 +14,8 @@ import { FaGreaterThan } from "react-icons/fa";
 import { IoLogoGooglePlaystore, IoNotificationsOutline } from "react-icons/io5";
 import axios from "axios";
 import { ScoreCard } from "./ScoreCard";
+import { fetchMatchApi } from "../store/cricketmatchslice";
+import { useDispatch, useSelector } from "react-redux";
 const navigation = [
   { name: "Dashboard", href: "#", current: true },
   { name: "Team", href: "#", current: false },
@@ -21,74 +23,31 @@ const navigation = [
 ];
 
 export function ScoreBord() {
-  const [localteamnotplay, setlocalteamnotplay] = useState(null);
-  const [visiterteamnotplay, setVisiterteamnotplay] = useState(null);
-  const [homebattig, setHomebating] = useState(null);
-  const [hometeam, sethometeam] = useState([]);
-  const [hometeamdata, sethometeamdata] = useState([]);
-  const [visiterteam, setvisiterteam] = useState([]);
-  const [apidata, setApidata] = useState(null);
+  // const [localteamnotplay, setlocalteamnotplay] = useState(null);
+  // const [visiterteamnotplay, setVisiterteamnotplay] = useState(null);
+  // const [homebattig, setHomebating] = useState(null);
+  // const [hometeam, sethometeam] = useState([]);
+  // const [hometeamdata, sethometeamdata] = useState([]);
+  // const [visiterteam, setvisiterteam] = useState([]);
+  // const [apidata, setApidata] = useState(null);
   const { id } = useParams();
 
-  const ref = useRef();
+  // const ref = useRef();
 
-  async function fetchapidata() {
-    const { data, status } = await axios.get(
-      `${url}fixtures/${id}?api_token=${token}&include=bowling,batting,runs,lineup,localteam,visitorteam,batting.batsman,bowling.bowler,batting.bowler,balls,batting.catchstump,balls.team,scoreboards`
-    );
-    if (status == 200) {
-      setApidata(data.data);
+  const dispatch = useDispatch();
+  const {
+    apidata,
+    status,
+    localteamid,
+    visitorteamid,
+    visitorteamdata,
+    localteamdata,
+  } = useSelector((state) => state.cricketMatchApi);
 
-      const localteamdata = [];
-      const allplayer = data?.data.lineup.filter((teamdata) => {
-        const player = data?.data.batting.every(
-          (bestmen) =>
-            teamdata.id !== bestmen.player_id &&
-            teamdata.lineup.team_id == data.data.localteam_id
-        );
-        player && localteamdata.push(teamdata.fullname);
-      });
-      setlocalteamnotplay(localteamdata.toString());
-
-      const wisiterteamdata = [];
-      data?.data.lineup.filter((teamdata) => {
-        const player = data?.data.batting.every(
-          (bestmen) =>
-            teamdata.id !== bestmen.player_id &&
-            teamdata.lineup.team_id == data.data.visitorteam_id
-        );
-        player && wisiterteamdata.push(teamdata.fullname);
-      });
-      setVisiterteamnotplay(wisiterteamdata.toString());
-
-      const allmember = data.data.lineup.map((data) => {});
-
-      const localteam_id = data.data.localteam_id;
-
-      const visitorteam_id = data.data.visitorteam_id;
-      const localteam_bestmen = data.data.batting.filter((bestmen) => {
-        if (bestmen.team_id === localteam_id) {
-          const localteam_scorebord = data.data.scoreboards.filter((data) => {
-            if (data.team_id == localteam_id) {
-              return data;
-            }
-          });
-
-          bestmen.scorebord = localteam_scorebord;
-          return bestmen;
-        }
-      });
-
-      sethometeam(localteam_bestmen);
-      const visitorteam_bestmen = data.data.batting.filter((data) => {
-        return data.team_id == visitorteam_id;
-      });
-      setvisiterteam(visitorteam_bestmen);
-    }
-  }
+  console.log(status);
 
   useEffect(() => {
-    fetchapidata();
+    status == "idle" && dispatch(fetchMatchApi(id));
   }, []);
   return (
     <>
@@ -162,19 +121,19 @@ export function ScoreBord() {
             {/* <ScoreBord /> */}
             <ScoreCard
               {...{
-                apidata: hometeam,
+                apidata: localteamdata,
                 alldata: apidata,
-                hometeam: apidata?.localteam_id,
+                hometeam: localteamid,
 
-                didnotplaylocal: localteamnotplay,
+                // didnotplaylocal: localteamnotplay,
               }}
             />
             <ScoreCard
               {...{
-                apidata: visiterteam,
+                apidata: visitorteamdata,
                 alldata: apidata,
-                hometeam: apidata?.visitorteam_id,
-                didnotplaylocal: setVisiterteamnotplay,
+                hometeam: visitorteamid,
+                // didnotplaylocal: setVisiterteamnotplay,
               }}
             />
           </div>
