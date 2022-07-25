@@ -4,11 +4,15 @@ import { SliderComponent } from "./components/SliderSliderComponent";
 import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
 import { ScoreBord } from "./components/ScoreBord";
 
+import { CounterData } from "./components/counter";
+import { Apicalll } from "./components/Apicalll";
+import { Reduxdata } from "./components/Reduxdata";
+
 export default function App() {
   // redux start
   return (
     <>
-      <BrowserRouter>
+      {/* <BrowserRouter>
         <Nav />
         <Routes>
           <Route
@@ -24,7 +28,9 @@ export default function App() {
           <Route path="/:id" element={<ScoreBord />} excet></Route>
         </Routes>
         <Footer />
-      </BrowserRouter>
+      </BrowserRouter> */}
+      {/* <CounterData /> */}
+      <Reduxdata />
     </>
   );
 }
