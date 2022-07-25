@@ -6,14 +6,18 @@ export const ScoreCard = ({
   alldata,
   hometeam,
   visitorteam,
+  slider1,
+  slider2,
+  slider,
   scoreboards,
+  bothopen,
+  setBothopen,
   didnotplaylocal,
+  data,
 }) => {
   const [allteam, setAllteam] = useState([]);
 
   const [dropDown, setDropDown] = useState(false);
-
-  useEffect(() => {});
 
   return (
     <>
@@ -38,11 +42,14 @@ export const ScoreCard = ({
               </div>
               <div
                 className="scrollDown w-[16px] h-[16px] bg-[#ffb999] rounded-full "
-                onClick={() => setDropDown(!dropDown)}
+                // onClick={() => setDropDown(!dropDown)}
               >
                 <button
                   className=" text-white flex justify-center items-center"
-                  onClick={() => setDropDown(!dropDown)}
+                  onClick={() => {
+                    setDropDown(!dropDown);
+                    bothopen ? setBothopen(false) : setBothopen(true);
+                  }}
                 >
                   <AiOutlineDown
                     className={`  transition-all duration-700 ${
@@ -55,7 +62,11 @@ export const ScoreCard = ({
           </div>
           <div
             className={`${
+              // dropDown
               dropDown ? "max-h-[1560px]   " : "max-h-[0] "
+              // : slider2 && !bothopen && !dropDown
+              // ? "max-h-[1560px]   "
+              // : "max-h-[0] "
             } transition-all ease-in-out duration-700 overflow-hidden`}
           >
             <div className=" mx-[10px]  my-[10px]  ">

@@ -24,15 +24,9 @@ const navigation = [
 ];
 
 export function ScoreBord() {
+  const [botomcolor, setBottomcolor] = useState("Scorecard");
   const [bothopen, setBothopen] = useState(false);
 
-  // const [localteamnotplay, setlocalteamnotplay] = useState(null);
-  // const [visiterteamnotplay, setVisiterteamnotplay] = useState(null);
-  // const [homebattig, setHomebating] = useState(null);
-  // const [hometeam, sethometeam] = useState([]);
-  // const [hometeamdata, sethometeamdata] = useState([]);
-  // const [visiterteam, setvisiterteam] = useState([]);
-  // const [apidata, setApidata] = useState(null);
   const { id } = useParams();
 
   // const ref = useRef();
@@ -49,7 +43,7 @@ export function ScoreBord() {
     didnotplaylocalteam,
   } = useSelector((state) => state.cricketMatchApi);
 
-  console.log(status);
+  // console.log(status);
 
   useEffect(() => {
     dispatch(fetchMatchApi(id));
@@ -112,19 +106,56 @@ export function ScoreBord() {
             </div>
             <div>
               <div className="flex justify-between items-center border-y">
-                <div className="flex justify-center items-center w-[134px] py-[14px]">
+                <div
+                  className={`flex justify-center items-center   w-[134px]  py-[14px]  border-b-[5px]   cursor-pointer ${
+                    botomcolor == "Fantasy"
+                      ? " border-b-[#F89437] "
+                      : "border-b-white"
+                  }`}
+                  onClick={() => setBottomcolor("Fantasy")}
+                >
                   Fantasy
                 </div>
-                <div className="flex justify-center items-center  w-[134px] py-[14px]">
+                <div
+                  className={`flex justify-center items-center   w-[134px]  py-[14px]  border-b-[5px]  cursor-pointer ${
+                    botomcolor == "Info"
+                      ? " border-b-[#F89437] "
+                      : "border-b-white"
+                  }`}
+                  onClick={() => setBottomcolor("Info")}
+                >
                   Info
                 </div>
-                <div className="flex justify-center items-center  w-[134px] py-[14px]">
+                <div
+                  className={`flex justify-center items-center  border-b-[5px]   w-[134px]  py-[14px] cursor-pointer ${
+                    botomcolor == "Live"
+                      ? " border-b-[#F89437]"
+                      : " border-b-white "
+                  }`}
+                  onClick={() => setBottomcolor("Live")}
+                >
                   Live
                 </div>
-                <div className="flex justify-center items-center  w-[134px] py-[14px]">
+                <div
+                  className={`flex justify-center items-center   w-[134px]  py-[14px]  border-b-[5px]  cursor-pointer ${
+                    botomcolor == "Scorecard"
+                      ? " border-b-[#F89437] "
+                      : "border-b-white"
+                  }`}
+                  onClick={() => {
+                    setBottomcolor("Scorecard");
+                  }}
+                >
                   Scorecard
                 </div>
-                <div className="flex justify-center items-center  border-b-[2px] w-[134px]  py-[14px] border-b-fuchsia-900">
+                <div
+                  className={`flex justify-center items-center    border-b-[5px] w-[134px]  py-[14px] cursor-pointer ${
+                    botomcolor == "Squad"
+                      ? " border-b-[#F89437] "
+                      : "border-b-white"
+                  }`}
+                  onClick={() => setBottomcolor("Squad")}
+                >
                   Squad
                 </div>
               </div>
@@ -139,6 +170,7 @@ export function ScoreBord() {
                 didnotplaylocal: didnotplaylocalteam,
                 bothopen: bothopen,
                 setBothopen: setBothopen,
+                slider1: true,
               }}
             />
             <ScoreCard
@@ -149,6 +181,7 @@ export function ScoreBord() {
                 didnotplaylocal: didnotplayvisitorteam,
                 bothopen: bothopen,
                 setBothopen: setBothopen,
+                slider2: true,
               }}
             />
           </div>
