@@ -24,7 +24,7 @@ export function ScoreBord() {
   const [hometeam, sethometeam] = useState([]);
   const [hometeamdata, sethometeamdata] = useState([]);
   const [visiterteam, setvisiterteam] = useState([]);
-  const [apidata, setApidata] = useState([]);
+  const [apidata, setApidata] = useState(null);
   const { id } = useParams();
 
   const ref = useRef();
@@ -34,7 +34,8 @@ export function ScoreBord() {
       `${url}fixtures/${id}?api_token=${token}&include=bowling,batting,runs,lineup,localteam,visitorteam,batting.batsman,bowling.bowler,batting.bowler,balls,batting.catchstump,balls.team,scoreboards`
     );
     if (status == 200) {
-      setApidata([data.data]);
+      console.log(data.data);
+      setApidata(data.data);
 
       const localteam_id = data.data.localteam_id;
 
@@ -61,8 +62,8 @@ export function ScoreBord() {
   }
 
   useEffect(() => {
-    apidata.length === 0 && fetchapidata();
-  }, []);
+    !apidata && fetchapidata();
+  }, [apidata]);
   return (
     <>
       <div className="relative   max-w-[1366px]  mt-10 mx-auto   ">
@@ -73,23 +74,15 @@ export function ScoreBord() {
             <div className="flex flex-col">
               <div>
                 <span className="bg-[#2C41B6] text-white p-[1px]">
-                  {/* {apidata?.data.localteam.code} */}
-                  {apidata && apidata?.localteam?.code}
+                  {apidata && apidata.localteam?.code}
                   {/* AM */}
                 </span>
               </div>
               <div className="flex gap-[5px]  justify-center items-center">
                 <span className="text-[21px]">
-                  {/* {apidata?.localteam_id === apidata.runs[0]?.team_id &&
-                    apidata?.runs[0].score +
-                      "/" +
-                      apidata?.runs[0].wickets}{" "} */}
-                  {/* } */}
-                  {/* {apidata? apidata?.runs[0].}
-                </span>
-                <span className="text-[12px]">
-                  {/* {apidata?.localteam_id == apidata?.runs[0].team_id &&
-                    `(${apidata?.runs[0].overs})`} */}
+                  {apidata && apidata.localteam?.id === apidata?.runs[0].team_id
+                    ? `${apidata?.runs[0].score} / ${apidata?.runs[0].wickets}`
+                    : `${apidata?.runs[1].score} / ${apidata?.runs[1].wickets}`}
                 </span>
               </div>
             </div>
@@ -104,13 +97,20 @@ export function ScoreBord() {
               <div className="">
                 <span className="bg-[#F89437] text-white p-[1px] ">
                   {apidata && apidata.visitorteam?.code}
-                  {/* {apidata && apidata.visitorteam?.code} */}
                 </span>
               </div>
               <div className="flex gap-[5px]  justify-center items-center">
                 <span className="text-[21px]">
-                  {/* {apidata?.localteam_id == apidata?.runs[0].team_id &&
-                    apidata?.runs[1].score + "/" + apidata?.runs[1].wickets} */}
+                  {apidata &&
+                  apidata.visitorteam?.id === apidata?.runs[0].team_id
+                    ? `${apidata?.runs[0].score} / ${apidata?.runs[0].wickets}`
+                    : `${apidata?.runs[1].score} / ${apidata?.runs[1].wickets}`}
+
+                  {/* {apidata &&
+                    apidata[0]?.localteam_id == apidata[0]?.runs[0].team_id &&
+                    apidata[0]?.runs[1].score +
+                      "/" +
+                      apidata[0]?.runs[1].wickets} */}
                 </span>
                 <span className="text-[12px]">
                   {/* {apidata?.localteam_id == apidata?.runs[1].team_id &&
@@ -147,13 +147,15 @@ export function ScoreBord() {
               apidata: hometeam,
               alldata: apidata,
               hometeam: apidata?.localteam_id,
+              scorebord: apidata?.scoreboards,
             }}
           />
           <ScoreCard
             {...{
               apidata: visiterteam,
               alldata: apidata,
-              visitorteam: "a",
+              hometeam: apidata?.visitorteam_id,
+              scorebord: apidata?.scoreboards,
             }}
           />
         </div>

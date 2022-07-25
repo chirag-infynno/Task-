@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { AiOutlineDown } from "react-icons/ai";
 
 export const ScoreCard = ({ apidata, alldata, hometeam, visitorteam }) => {
-  console.log(apidata);
+  console.log("alldat", alldata);
   const [dropDown, setDropDown] = useState(false);
 
   function DropDown() {
@@ -16,21 +16,40 @@ export const ScoreCard = ({ apidata, alldata, hometeam, visitorteam }) => {
 
   return (
     <>
+      <div className="bg-[#FAFAFA] flex justify-between py-[10px] px-[10px]">
+        <div>
+          <span>BATSMAN</span>
+        </div>
+        <div className="flex items-center">
+          {" "}
+          <span className="w-[60px]">R</span>{" "}
+          <span className="w-[60px]">B</span>{" "}
+          <span className="w-[60px]">4s</span>{" "}
+          <span className="w-[60px]">6s</span>{" "}
+          <span className="w-[60px]">S/R</span>
+        </div>
+      </div>
       <section className=" flex justify-center items-center bg-white">
         <div className="flex flex-col w-[660px]">
           <div className="topTitle border-b-[1px] border-b-[#e6e6e6] px-[18px] py-[15px] flex justify-between items-center gap-auto w-[100%] bg-[#fafafa] h-[50px]">
             <div className="code">
               <p className="text-[16px] text-[#141414] font-[600] leading-5">
                 {/* {score.localteam.code}hello */}
-                {hometeam && alldata.localteam?.code}
-                {visitorteam && alldata.visitorteam?.code}
+                {hometeam && alldata.localteam?.id === hometeam
+                  ? alldata.localteam.code
+                  : alldata.visitorteam.code}
+                {/* {visitorteam && alldata.visitorteam?.code} */}
               </p>
             </div>
             <div className="scrollBar flex gap-[40px] justify-center items-center bg-[#FAFAFA]">
               <div className="runs">
                 <p className="text-[14px] text-[#141414] font-[600] leading-5">
-                  {hometeam && alldata.localteam?.code}
-                  123/74
+                  {/* {hometeam && alldata.runs[0].team_id === hometeam} */}
+                  {hometeam && hometeam === alldata?.runs[0].team_id
+                    ? `${alldata?.runs[0].score} / ${alldata?.runs[0].wickets}`
+                    : `${alldata?.runs[1].score} / ${alldata?.runs[1].wickets}`}
+                  {/* {hometeam &&  } */}
+                  {/* 123/74 */}
                 </p>
               </div>
               <div className="scrollDown w-[16px] h-[16px] bg-[#ffb999] rounded-full">
