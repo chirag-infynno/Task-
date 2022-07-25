@@ -2,7 +2,7 @@ export function Footer() {
   return (
     <>
       {" "}
-      <div className="bg-back-color  mx-auto  max-w-[1366px]">
+      <div className="bg-back-color  mx-auto mt-[100px]  max-w-[1366px]">
         <div className="py-[32px] flex justify-center ">
           <img
             src="https://www.fancode.com/867f5c067d544a3f79567a893209f1c4.svg"

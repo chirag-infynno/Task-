@@ -3,6 +3,7 @@ import axios from "axios";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Oval } from "react-loader-spinner";
 
 import { AiFillApple, AiFillPlayCircle } from "react-icons/ai";
 import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
@@ -35,16 +36,13 @@ export function SliderComponent() {
     ref.current.slickNext();
   }
   function prevSlide() {
-    // console.log(ref);
     ref.current.slickPrev();
   }
   async function fetchapidata() {
     const { data, status } = await axios.get(
-      // `${url}fixtures/${32}?api_token=${token}&include=localteam,visitorteam,scoreboards,bowling,batting,balls,runs`
       `${url}fixtures?api_token=${token}&include=localteam,visitorteam,runs,league,season  `
     );
     if (status == 200) {
-      // console.log(data.data);
       const updatedata = data.data.slice(0, 20);
       console.log(updatedata, "updatedata");
       const newdata = data.data.filter((data, index) => {
@@ -70,7 +68,7 @@ export function SliderComponent() {
 
         <div className="relative mx-[180px] ">
           <Slider ref={ref} {...settings}>
-            {apidata.length > 0 &&
+            {apidata.length > 0 ? (
               apidata.map((data, index) => {
                 return (
                   <div className=" " key={index}>
@@ -91,8 +89,6 @@ export function SliderComponent() {
                             </div>
                             <div className=" flex flex-col">
                               <span>
-                                {/* data.runs[1]?.teamteam_id ===data.localteam.id ? */}
-                                {/* {data.runs[1]?.score}/{data.runs[1]?.wickets} */}
                                 {data.draw_noresult
                                   ? "N/A"
                                   : data.runs[0]?.team_id === data.localteam.id
@@ -114,7 +110,6 @@ export function SliderComponent() {
                               <img
                                 src={data.visitorteam.image_path}
                                 className="w-[30px] h-[30px]"
-                                // width={"32px"}
                               ></img>
                               <span>{data.visitorteam.code}</span>
                             </div>
@@ -132,10 +127,7 @@ export function SliderComponent() {
                         </div>
 
                         <div className="flex justify-center items-center">
-                          <span className="text-[12px]">
-                            {data.note}
-                            {/* {index} */}
-                          </span>
+                          <span className="text-[12px]">{data.note}</span>
                         </div>
                       </div>
                       <div
@@ -167,13 +159,11 @@ export function SliderComponent() {
                           </span>
                         </div>
                       </div>
-                      {/* padding-top: 20px; padding-bottom: 10px; z-index: -87;
-   margin-top: -10px; position: relative; */}
+
                       <div className=" invisible -mt-[12px] pt-3 pb-2  relative w-[315px]   bg-more-cricket-color rounded-b-[20px] flex justify-between z-[-10] group-hover:visible">
                         <div className="flex px-[10px] items-center justify-between w-[98%] ">
                           <div className="flex items-center">
                             <MdBarChart
-                              // className="decoration-header-color"
                               style={{
                                 color: "#EA580C",
                               }}
@@ -183,29 +173,23 @@ export function SliderComponent() {
                             </span>
                           </div>{" "}
                           <div className="flex items-center justify-center flex-row-reverse">
-                            {/* <div
-           className="flex justify-center items-center rounded-full bg-header-color
-        "
-         >
-           <FaGreaterThan
-             className="h-[8px] w-[8px]"
-             style={{
-               color: "white",
-             }}
-           />
-         </div> */}
-
                             <span className="pr-[2px] text-[14px]">
                               More Cricket
                             </span>
                           </div>
                         </div>
                       </div>
-                      {/* a */}
                     </div>
                   </div>
                 );
-              })}
+              })
+            ) : (
+              <>
+                <div className=" h-[400px] w-[100%] flex justify-center items-center bg-dark">
+                  <Oval color="orange" height={100} width={40} />
+                </div>
+              </>
+            )}
           </Slider>
         </div>
 
@@ -221,8 +205,6 @@ export function SliderComponent() {
         >
           <BiRightArrowAlt size={"30px"} />
         </button>
-
-        {/*  */}
       </div>
       <br></br>
       <br></br>

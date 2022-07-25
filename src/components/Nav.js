@@ -53,8 +53,6 @@ export function Nav() {
                   width: "25px",
                 }}
               ></img>
-
-              {/* <img src="https://fancode.com/skillup-uploads/fc-web/icon-play-store.png"  ></img> */}
             </div>
             <div className="flex  justify-center  items-center rounded-full  bg-white">
               {/* <IoLogoGooglePlaystore /> */}

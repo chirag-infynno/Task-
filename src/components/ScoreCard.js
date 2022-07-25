@@ -7,60 +7,56 @@ export const ScoreCard = ({
   hometeam,
   visitorteam,
   scoreboards,
+  didnotplaylocal,
 }) => {
   const [allteam, setAllteam] = useState([]);
 
   const [dropDown, setDropDown] = useState(false);
-  console.log(alldata);
 
-  function DropDown() {
-    if (dropDown) {
-      setDropDown(false);
-    } else {
-      setDropDown(true);
-    }
-  }
   useEffect(() => {});
 
   return (
     <>
       <section className=" flex justify-center items-center bg-white">
-        <div className="flex flex-col w-[660px]">
-          <div className="topTitle border-b-[1px] border-b-[#e6e6e6] px-[18px] py-[15px] flex justify-between items-center gap-auto w-[100%] bg-[#fafafa] h-[50px]">
+        <div className="flex flex-col w-[669px]">
+          <div className="topTitle border-b-[1px] w-[669px] border-b-[#e6e6e6] px-[18px] py-[15px] flex justify-between items-center gap-auto  bg-[#fafafa] h-[50px]">
             <div className="code">
               <p className="text-[16px] text-[#141414] font-[600] leading-5">
-                {hometeam && alldata.localteam?.id === hometeam
-                  ? alldata?.localteam.code
-                  : alldata?.visitorteam.code}
+                {hometeam && alldata?.localteam?.id === hometeam
+                  ? alldata?.localteam?.code
+                  : alldata?.visitorteam?.code}
               </p>
             </div>
             <div className="scrollBar flex gap-[40px] justify-center items-center bg-[#FAFAFA]">
               <div className="runs">
                 <p className="text-[14px] text-[#141414] font-[600] leading-5">
-                  {/* {hometeam && alldata.runs[0].team_id === hometeam} */}
-                  {hometeam && hometeam === alldata?.runs[0].team_id
-                    ? `${alldata?.runs[0].score} / ${alldata?.runs[0].wickets}`
-                    : `${alldata?.runs[1].score} / ${alldata?.runs[1].wickets}`}
-                  {/* {hometeam &&  } */}
-                  {/* 123/74 */}
+                  {hometeam &&
+                    (hometeam === alldata?.runs[0]?.team_id
+                      ? `${alldata?.runs[0].score} / ${alldata?.runs[0].wickets}`
+                      : `${alldata?.runs[1].score} / ${alldata?.runs[1].wickets}`)}
                 </p>
               </div>
-              <div className="scrollDown w-[16px] h-[16px] bg-[#ffb999] rounded-full">
+              <div
+                className="scrollDown w-[16px] h-[16px] bg-[#ffb999] rounded-full "
+                onClick={() => setDropDown(!dropDown)}
+              >
                 <button
                   className=" text-white flex justify-center items-center"
-                  onClick={() => DropDown()}
+                  onClick={() => setDropDown(!dropDown)}
                 >
-                  <AiOutlineDown />
+                  <AiOutlineDown
+                    className={`  transition-all duration-700 ${
+                      dropDown ? "rotate-180" : ""
+                    }`}
+                  />
                 </button>
               </div>
             </div>
           </div>
           <div
             className={`${
-              dropDown
-                ? "h-[100%] "
-                : "h-[0]  transition ease-in-out delay-[1000ms] overflow-hidden"
-            }`}
+              dropDown ? "max-h-[1560px]   " : "max-h-[0] "
+            } transition-all ease-in-out duration-700 overflow-hidden`}
           >
             <div className=" mx-[10px]  my-[10px]  ">
               <div className="bg-[#FAFAFA] flex justify-between py-[10px] px-[10px]">
@@ -140,6 +136,23 @@ export const ScoreCard = ({
                     </div>
                   );
                 })}
+
+              {didnotplaylocal?.length > 1 && (
+                <div className="px-[10px] my-[10px] flex flex-col">
+                  <div className="flex justify-between  w-[100%] items-center">
+                    <div>
+                      <span className="text-[rgb(20, 20, 20)] text-[18px] whitespace-nowrap">
+                        Yet To Bat
+                      </span>
+                    </div>
+                    <div className="flex items-center ">
+                      <span className=" text-[12px] text-[gb(120, 120, 120)]">
+                        {didnotplaylocal}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              )}
 
               {alldata &&
                 alldata?.scoreboards.map((data, index) => {
